@@ -31,9 +31,7 @@ export default function LoginPage() {
             <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
               <ShoppingBag className="w-10 h-10 text-white" />
             </div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent mb-2">
-              Bella Accessories
-            </h1>
+            
             <p className="text-gray-600">Welcome back, beautiful!</p>
           </div>
 
@@ -50,7 +48,7 @@ export default function LoginPage() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-pink-400 focus:ring-2 focus:ring-pink-100 outline-none transition-all duration-200 bg-gray-50/50"
-                placeholder="your.email@example.com"
+               
               />
             </div>
 
@@ -66,7 +64,6 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 focus:border-pink-400 focus:ring-2 focus:ring-pink-100 outline-none transition-all duration-200 bg-gray-50/50"
-                  placeholder="Enter your password"
                 />
                 <button
                   type="button"
