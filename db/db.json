@@ -1,0 +1,516 @@
+{
+  "products": [
+    {
+      "id": "1",
+      "name": "Elegant Necklace",
+      "price": 55.99,
+      "img": "https://salty.co.in/cdn/shop/files/DazzlingBeehiveNecklace_1.png?v=1690709687&width=1800",
+      "stock": 10,
+      "rating": 4.5,
+      "category": "necklace"
+    },
+    {
+      "id": "2",
+      "name": "Stylish Bracelet",
+      "price": 100.99,
+      "img": "https://salty.co.in/cdn/shop/files/VictorianWhiteBracelet_2.jpg?v=1751919358&width=1800",
+      "stock": 12,
+      "rating": 5,
+      "category": "bracelet"
+    },
+    {
+      "id": "3",
+      "name": "Luxury Rings",
+      "price": 129.99,
+      "img": "https://salty.co.in/cdn/shop/files/RS14337-S_MAIN.jpg?v=1753110246&width=1800",
+      "stock": 10,
+      "rating": 4,
+      "category": "rings"
+    },
+    {
+      "id": "4",
+      "name": "Champagne Wishes Studs",
+      "price": 85.99,
+      "img": "https://salty.co.in/cdn/shop/files/ChampagneWishesStuds_1.jpg?v=1751920325&width=1800",
+      "stock": 3,
+      "rating": 4.5,
+      "category": "earrings"
+    },
+    {
+      "id": "5",
+      "name": "Avery Emerald Crystal Earring",
+      "price": 40.99,
+      "img": "https://salty.co.in/cdn/shop/files/ES11202-G-GRN_2.jpg?v=1753114128&width=1800",
+      "stock": 10,
+      "rating": 5,
+      "category": "earrings"
+    },
+    {
+      "id": "6",
+      "name": "Blooming Luxury Gold Earring",
+      "price": 69.99,
+      "img": "https://salty.co.in/cdn/shop/files/ES13435-G_3_3fa029c2-dc4c-4f2e-b286-46dacb3b6fa4.jpg?v=1751917612&width=1800",
+      "stock": 10,
+      "rating": 4,
+      "category": "earrings"
+    },
+    {
+      "id": "7",
+      "name": "Diamond Pendant",
+      "price": 199.99,
+      "img": "https://salty.co.in/cdn/shop/files/MilleniaDancingSwanNecklace_2.jpg?v=1746186204&width=1800",
+      "stock": 10,
+      "rating": 5,
+      "category": "necklace"
+    },
+    {
+      "id": "8",
+      "name": "Silver Charm Bracelet",
+      "price": 89.49,
+      "img": "https://salty.co.in/cdn/shop/files/Salty-1746809_7cc15521-e6ba-4050-8be4-2f016a39b9bc.jpg?v=1755094157&width=1800",
+      "stock": 10,
+      "rating": 4.5,
+      "category": "bracelet"
+    },
+    {
+      "id": "9",
+      "name": "Rose Gold Bangle",
+      "price": 74.99,
+      "img": "https://salty.co.in/cdn/shop/files/IMG_8951.jpg?v=1753446407&width=1800",
+      "stock": 10,
+      "rating": 4,
+      "category": "bracelet"
+    },
+    {
+      "id": "10",
+      "name": "Golden Oval-Cut Diamond Ring",
+      "price": 149.99,
+      "img": "https://salty.co.in/cdn/shop/files/RS14317-G_MAIN2.jpg?v=1751917477&width=1800",
+      "stock": 10,
+      "rating": 5,
+      "category": "rings"
+    },
+    {
+      "id": "11",
+      "name": "Minimalist Chain Necklace",
+      "price": 34.99,
+      "img": "https://salty.co.in/cdn/shop/files/1693118087763.png?v=1746454147&width=1800",
+      "stock": 10,
+      "rating": 4,
+      "category": "necklace"
+    },
+    {
+      "id": "12",
+      "name": "Molten Wave Golden Ring",
+      "price": 249.99,
+      "img": "https://salty.co.in/cdn/shop/files/RS14516-G_Main_20_281_29.jpg?v=1753114275&width=1800",
+      "stock": 10,
+      "rating": 5,
+      "category": "rings"
+    },
+    {
+      "id": "13",
+      "name": "Twist Rope Bracelet",
+      "price": 54.99,
+      "img": "https://salty.co.in/cdn/shop/files/BS14343-G-WHT__283_29.jpg?v=1754893498&width=1800",
+      "stock": 10,
+      "rating": 4,
+      "category": "bracelet"
+    },
+    {
+      "id": "14",
+      "name": "Infinity Knot Pendant",
+      "price": 79.99,
+      "img": "https://salty.co.in/cdn/shop/files/Saltty-5275097.jpg?v=1751920857&width=1800",
+      "stock": 10,
+      "rating": 4.5,
+      "category": "necklace"
+    },
+    {
+      "id": "15",
+      "name": "Delicate Anklet",
+      "price": 29.99,
+      "img": "https://salty.co.in/cdn/shop/files/BS14277-G-WHT_MAIN1.jpg?v=1751917223&width=1800",
+      "stock": 10,
+      "rating": 3.5,
+      "category": "bracelet"
+    },
+    {
+      "id": "16",
+      "name": "Beyond Infinity Silver Ring",
+      "price": 189.99,
+      "img": "https://salty.co.in/cdn/shop/files/RS13614-S_2fac551c-244e-4c16-b7e6-b1deba9a2b48.jpg?v=1754124263&width=1800",
+      "stock": 10,
+      "rating": 5,
+      "category": "rings"
+    },
+    {
+      "id": "17",
+      "name": "Triple Layer Quirky Hoop Earrings",
+      "price": 44.99,
+      "img": "https://salty.co.in/cdn/shop/products/TripleLayerQuirkyHoopEarrings2.jpg?v=1709708712&width=1800",
+      "stock": 10,
+      "rating": 4,
+      "category": "earrings"
+    },
+    {
+      "id": "18",
+      "name": "Regal Radiance Stone Ring",
+      "price": 299.99,
+      "img": "https://salty.co.in/cdn/shop/files/RC24347-S_MAIN1.jpg?v=1751919364&width=1800",
+      "stock": 10,
+      "rating": 5,
+      "category": "rings"
+    },
+    {
+      "id": "19",
+      "name": "Gemstone Choker",
+      "price": 139.99,
+      "img": "https://salty.co.in/cdn/shop/files/NS13651-G-PNK_2.jpg?v=1754123195&width=1800",
+      "stock": 10,
+      "rating": 4.5,
+      "category": "necklace"
+    },
+    {
+      "id": "20",
+      "name": "Classic Cuff Bracelet",
+      "price": 64.99,
+      "img": "https://salty.co.in/cdn/shop/files/Newwww32.jpg?v=1753113657&width=1800",
+      "stock": 10,
+      "rating": 4,
+      "category": "bracelet"
+    },
+    {
+      "name": "Hollis Studded Butterfly Silver Ring",
+      "price": 66,
+      "img": "https://salty.co.in/cdn/shop/files/RS13568-S.jpg?v=1753110298&width=1800",
+      "stock": 1,
+      "category": "rings",
+      "rating": 4,
+      "id": "1756794705106"
+    }
+  ],
+  "users": [
+    {
+      "id": "2ac6",
+      "name": "ajmal k",
+      "email": "ajmal@gmail.com",
+      "password": "098765",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "id": "6",
+          "name": "Blooming Luxury Gold Earring",
+          "price": 69.99,
+          "img": "https://salty.co.in/cdn/shop/files/ES13435-G_3_3fa029c2-dc4c-4f2e-b286-46dacb3b6fa4.jpg?v=1751917612&width=1800",
+          "rating": 4,
+          "category": "earrings",
+          "quantity": 1
+        }
+      ],
+      "orders": [],
+      "wishlist": [],
+      "created_at": "2025-08-22T10:42:44.800Z",
+      "status": "active"
+    },
+    {
+      "id": "2863",
+      "name": "saniya k",
+      "email": "saniya@gmail.com",
+      "password": "098765",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "id": "3",
+          "name": "Luxury Rings",
+          "price": 129.99,
+          "img": "https://salty.co.in/cdn/shop/files/RS14337-S_MAIN.jpg?v=1753110246&width=1800",
+          "rating": 4,
+          "category": "rings",
+          "quantity": 6
+        },
+        {
+          "id": "18",
+          "name": "Regal Radiance Stone Ring",
+          "price": 299.99,
+          "img": "https://salty.co.in/cdn/shop/files/RC24347-S_MAIN1.jpg?v=1751919364&width=1800",
+          "stock": 10,
+          "rating": 5,
+          "category": "rings",
+          "quantity": 1
+        },
+        {
+          "id": "6",
+          "name": "Blooming Luxury Gold Earring",
+          "price": 69.99,
+          "img": "https://salty.co.in/cdn/shop/files/ES13435-G_3_3fa029c2-dc4c-4f2e-b286-46dacb3b6fa4.jpg?v=1751917612&width=1800",
+          "stock": 10,
+          "rating": 4,
+          "category": "earrings",
+          "quantity": 1
+        }
+      ],
+      "orders": [],
+      "wishlist": [],
+      "created_at": "2025-08-22T17:43:57.384Z",
+      "status": "active"
+    },
+    {
+      "id": "cc92",
+      "name": "saniya saleem",
+      "email": "saniyasaleem@gmail.com",
+      "password": "123",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "id": "1",
+          "name": "Elegant Necklace",
+          "price": 49.99,
+          "img": "https://salty.co.in/cdn/shop/files/DazzlingBeehiveNecklace_1.png?v=1690709687&width=1800",
+          "rating": 4.5,
+          "category": "necklace",
+          "quantity": 1
+        }
+      ],
+      "orders": [],
+      "wishlist": [],
+      "created_at": "2025-08-23T08:39:57.938Z",
+      "status": "active"
+    },
+    {
+      "id": "9488",
+      "name": "ayshu aami",
+      "email": "ayshu@gmail.com",
+      "password": "67890",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "orders": [],
+      "wishlist": [],
+      "status": "active"
+    },
+    {
+      "id": "52b5",
+      "name": "aami ayshu",
+      "email": "aami@gmail.com",
+      "password": "67890",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "id": "8",
+          "name": "Silver Charm Bracelet",
+          "price": 89.49,
+          "img": "https://salty.co.in/cdn/shop/files/Salty-1746809_7cc15521-e6ba-4050-8be4-2f016a39b9bc.jpg?v=1755094157&width=1800",
+          "rating": 4.5,
+          "category": "bracelet",
+          "quantity": 1
+        },
+        {
+          "id": "4",
+          "name": "Champagne Wishes Studs",
+          "price": 59.99,
+          "img": "https://salty.co.in/cdn/shop/files/ChampagneWishesStuds_1.jpg?v=1751920325&width=1800",
+          "rating": 4.5,
+          "category": "earrings",
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "name": "Luxury Rings",
+          "price": 129.99,
+          "img": "https://salty.co.in/cdn/shop/files/RS14337-S_MAIN.jpg?v=1753110246&width=1800",
+          "rating": 4,
+          "category": "rings",
+          "quantity": 1
+        },
+        {
+          "id": "2",
+          "name": "Stylish Bracelet",
+          "price": 89.99,
+          "img": "https://salty.co.in/cdn/shop/files/VictorianWhiteBracelet_2.jpg?v=1751919358&width=1800",
+          "rating": 5,
+          "category": "bracelet",
+          "quantity": 1
+        }
+      ],
+      "orders": [],
+      "wishlist": [],
+      "status": "blocked"
+    },
+    {
+      "id": "f2fd",
+      "name": "anamika k",
+      "email": "anamika@gmail.com",
+      "password": "12345678",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "id": "3",
+          "name": "Luxury Rings",
+          "price": 129.99,
+          "img": "https://salty.co.in/cdn/shop/files/RS14337-S_MAIN.jpg?v=1753110246&width=1800",
+          "rating": 4,
+          "category": "rings",
+          "quantity": 1
+        }
+      ],
+      "orders": [],
+      "wishlist": [],
+      "status": "active"
+    },
+    {
+      "id": "5a21",
+      "name": "sahla sherin",
+      "email": "sahla@gmail.com",
+      "password": "12345",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "orders": [],
+      "wishlist": [],
+      "status": "active"
+    },
+    {
+      "id": "17c5",
+      "name": "rena kp",
+      "email": "renak@gmail.com",
+      "password": "123",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "orders": [],
+      "wishlist": [],
+      "status": "active"
+    },
+    {
+      "id": "8397",
+      "name": "suha M",
+      "email": "suha@gmail.com",
+      "password": "suhasuha",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "orders": [],
+      "wishlist": [],
+      "status": "active"
+    },
+    {
+      "id": "83f6",
+      "name": "ayshu ayshu",
+      "email": "ffff@gm.nb",
+      "password": "122",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "orders": [],
+      "wishlist": [],
+      "status": "active"
+    },
+    {
+      "id": "c817",
+      "name": "nazeeb kn",
+      "email": "nazeeb@gmail.com",
+      "password": "1234567",
+      "role": "user",
+      "isBlock": false,
+      "cart": [
+        {
+          "id": "2",
+          "name": "Stylish Bracelet",
+          "price": 89.99,
+          "img": "https://salty.co.in/cdn/shop/files/VictorianWhiteBracelet_2.jpg?v=1751919358&width=1800",
+          "rating": 5,
+          "category": "bracelet",
+          "quantity": 1
+        },
+        {
+          "id": "7",
+          "name": "Diamond Pendant",
+          "price": 199.99,
+          "img": "https://salty.co.in/cdn/shop/files/MilleniaDancingSwanNecklace_2.jpg?v=1746186204&width=1800",
+          "rating": 5,
+          "category": "necklace",
+          "quantity": 1
+        }
+      ],
+      "orders": [
+        {
+          "id": "o1",
+          "items": [
+            {
+              "id": "6",
+              "name": "Blooming Luxury Gold Earring",
+              "price": 69.99,
+              "quantity": 1
+            }
+          ],
+          "total": 69.99,
+          "status": "pending",
+          "created_at": "2025-09-01T12:00:00.000Z"
+        }
+      ],
+      "wishlist": [],
+      "status": "blocked"
+    },
+    {
+      "id": "07ba",
+      "name": "bigg bi",
+      "email": "biggbi@gmail.com",
+      "password": "123",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "orders": [],
+      "wishlist": []
+    }
+  ],
+  "banners": [
+    {
+      "id": "1",
+      "url": "https://enjoytravellife.com/wp-content/uploads/2021/06/womens-fashion-accessories.jpg"
+    },
+    {
+      "id": "2",
+      "url": "https://cdn.shopify.com/s/files/1/0266/6276/4597/files/slip_ons_for_women_by_luna_blu.jpg?v=1620376964"
+    },
+    {
+      "id": "3",
+      "url": "https://cdn.shopify.com/s/files/1/0266/6276/4597/files/gold_and_pearl_accessories_by_westside.jpg?v=1620377002"
+    }
+  ],
+  "orders": [
+    {
+      "id": "o1",
+      "customer": "Saniya",
+      "date": "2025-09-01",
+      "amount": 69.99,
+      "status": "Delivered"
+    },
+    {
+      "id": "o2",
+      "customer": "John",
+      "date": "2025-08-30",
+      "amount": 120,
+      "status": "Delivered"
+    },
+    {
+      "id": "o1756715938762",
+      "customer": "saniya k",
+      "date": "2025-09-01",
+      "amount": 109.97999999999999,
+      "status": "Delivered"
+    },
+    {
+      "id": "o1756716958372",
+      "customer": "anamika",
+      "date": "2025-09-01",
+      "amount": 199.99,
+      "status": "Delivered"
+    }
+  ]
+}

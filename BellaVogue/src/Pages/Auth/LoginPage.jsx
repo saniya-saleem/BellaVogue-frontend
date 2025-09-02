@@ -1,96 +1,144 @@
-import React from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Eye, EyeOff, ShoppingBag, Heart, Sparkles } from 'lucide-react';
+import { data, Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../../ContextAPI/AuthContext';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 export default function LoginPage() {
-  const [showPassword, setShowPassword] = React.useState(false);
-  const [email, setEmail] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [message, setMessage] = React.useState("");
+   const[form,setForm]=useState({
+    email:"",
+    password:"",
+    showPassword:false,
+   })
 
-  // Dummy user data
-  const dummyUser = {
-    email: "sophia.williams@email.com",
-    password: "MySecurePassword123!"
+  const navigate=useNavigate();
+  const {user,login}=useContext(AuthContext)
+
+  useEffect(()=>{
+    if(user)navigate("/home");
+
+  },[user,navigate]);
+
+  const handleChange=(e)=>{
+   const {name,value}=e.target;
+   setForm((prev)=>({...prev,[name]: value}));
   };
 
-  const handleLogin = (e) => {
-    e.preventDefault();
+  const togglePassword=()=>{
+    setForm((prev)=>({...prev,showPassword:!prev.showPassword}));
+  }
 
-    if (email === dummyUser.email && password === dummyUser.password) {
-      setMessage("✅ Login successful! Welcome back 💖");
-    } else {
-      setMessage("❌ Invalid email or password. Try again.");
+const handleLogin= async(e)=>{
+  e.preventDefault();
+  if(form.password.length <=3){
+   toast.error("password must be greater than 3 character")
+   return;
+  }
+  try{
+    const res=await axios.get("http://localhost:5000/users",{
+      params:{email: form.email,password: form.password},
+    });
+    if (res.data.length===0){
+     toast.error("Invalid email or password.try again.")
     }
-  };
+    
+    else{
+      const loggedInUser= res.data[0];
+    
+    if(loggedInUser.status ==="blocked"){
+      toast.error("your account has been blocked .please contact support.");
+      return;
+    }
 
+    toast.success("Login successful! Welcome back");
+      login(loggedInUser);
+      navigate("/home");
+  }
+  }
+  catch(error){
+    console.error(error);
+    toast.error("something went wrong. try again later")
+  }
+};
   return (
-    <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md relative">
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-white/20">
+        <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-indigo-100">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-pink-500 to-purple-600 rounded-2xl mb-4 shadow-lg">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-indigo-600 to-indigo-900 rounded-2xl mb-4 shadow-lg">
               <ShoppingBag className="w-10 h-10 text-white" />
             </div>
-            
-            <p className="text-gray-600">Welcome back, beautiful!</p>
+            <h2 className="text-2xl font-bold text-indigo-700">Welcome Back</h2>
+            <p className="text-gray-600">Log in to continue shopping ✨</p>
           </div>
 
-          {/* Login form */}
           <form onSubmit={handleLogin} className="space-y-6">
-            {/* Email field */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                 Email Address
-                <Heart className="w-4 h-4 text-pink-400" />
+                <Heart className="w-4 h-4 text-indigo-500" />
               </label>
               <input
                 type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-pink-400 focus:ring-2 focus:ring-pink-100 outline-none transition-all duration-200 bg-gray-50/50"
-               
+                name='email'
+                value={form.email}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all duration-200 bg-gray-50/50"
               />
             </div>
 
-            {/* Password field */}
             <div className="space-y-2">
               <label className="text-sm font-medium text-gray-700 flex items-center gap-2">
                 Password
-                <Sparkles className="w-4 h-4 text-purple-400" />
+                <Sparkles className="w-4 h-4 text-indigo-500" />
               </label>
               <div className="relative">
                 <input
-                  type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 focus:border-pink-400 focus:ring-2 focus:ring-pink-100 outline-none transition-all duration-200 bg-gray-50/50"
+                  type={form.showPassword ? "text" : "password"}
+                  name='password'
+                  value={form.password}
+                  onChange={handleChange}
+                  required
+                  className="w-full px-4 py-3 pr-12 rounded-xl border border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 outline-none transition-all duration-200 bg-gray-50/50"
                 />
                 <button
                   type="button"
-                  onClick={() => setShowPassword(!showPassword)}
+                  onClick={togglePassword}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                  {form.showPassword ? (<EyeOff className="w-5 h-5" /> 
+                  ):( <Eye className="w-5 h-5" />)}
                 </button>
               </div>
             </div>
 
-            {/* Login button */}
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-indigo-600 to-indigo-900 text-white py-3 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2"
             >
               <span>Sign In</span>
               <Heart className="w-4 h-4" />
             </button>
           </form>
 
-          {/* Show message */}
-          {message && (
+          {/* {message && (
             <p className="mt-4 text-center font-medium text-gray-700">{message}</p>
-          )}
+          )} */}
+          <p className="mt-10 text-center text-sm text-gray-500">
+            Not a member?
+            <Link
+              to="/register"
+              className="ml-1 font-semibold text-indigo-600 hover:text-indigo-500"
+            >
+              Register here
+            </Link>
+          </p>
         </div>
+
       </div>
+
     </div>
   );
 }
