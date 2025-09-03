@@ -1,66 +1,76 @@
-import React, { useState, useContext, useEffect } from 'react';
-import { Eye, EyeOff, ShoppingBag, Heart, Sparkles } from 'lucide-react';
-import { data, Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../../ContextAPI/AuthContext';
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import React, { useState, useContext, useEffect } from "react";
+import { Eye, EyeOff, ShoppingBag, Heart, Sparkles } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../ContextAPI/AuthContext";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 export default function LoginPage() {
-   const[form,setForm]=useState({
-    email:"",
-    password:"",
-    showPassword:false,
-   })
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+    showPassword: false,
+  });
 
-  const navigate=useNavigate();
-  const {user,login}=useContext(AuthContext)
-
-  useEffect(()=>{
-    if(user)navigate("/home");
-
-  },[user,navigate]);
-
-  const handleChange=(e)=>{
-   const {name,value}=e.target;
-   setForm((prev)=>({...prev,[name]: value}));
+  const navigate = useNavigate();
+  const { user, login } = useContext(AuthContext);
+  useEffect(() => {
+    if (user) {
+      if (user.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/home");
+      }
+    }
+  }, [user, navigate]);
+   const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const togglePassword=()=>{
-    setForm((prev)=>({...prev,showPassword:!prev.showPassword}));
-  }
+  const togglePassword = () => {
+    setForm((prev) => ({ ...prev, showPassword: !prev.showPassword }));
+  };
 
-const handleLogin= async(e)=>{
-  e.preventDefault();
-  if(form.password.length <=3){
-   toast.error("password must be greater than 3 character")
-   return;
-  }
-  try{
-    const res=await axios.get("http://localhost:5000/users",{
-      params:{email: form.email,password: form.password},
-    });
-    if (res.data.length===0){
-     toast.error("Invalid email or password.try again.")
-    }
-    
-    else{
-      const loggedInUser= res.data[0];
-    
-    if(loggedInUser.status ==="blocked"){
-      toast.error("your account has been blocked .please contact support.");
+  const handleLogin = async (e) => {
+    e.preventDefault();
+
+    if (form.password.length <= 3) {
+      toast.error("Password must be greater than 3 characters");
       return;
     }
 
-    toast.success("Login successful! Welcome back");
+    try {
+      const res = await axios.get("http://localhost:5000/users", {
+        params: { email: form.email, password: form.password },
+      });
+
+      if (res.data.length === 0) {
+        toast.error("Invalid email or password. Try again.");
+        return;
+      }
+
+      const loggedInUser = res.data[0];
+
+      if (loggedInUser.status == 'blocked') { 
+        toast.error("Your account has been blocked. Please contact support.");
+        return;
+      }
       login(loggedInUser);
-      navigate("/home");
-  }
-  }
-  catch(error){
-    console.error(error);
-    toast.error("something went wrong. try again later")
-  }
-};
+      toast.success("Login successful! Welcome back");
+
+      if (loggedInUser.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/home");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong. Try again later");
+    }
+  };
+  
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md relative">
@@ -81,7 +91,7 @@ const handleLogin= async(e)=>{
               </label>
               <input
                 type="email"
-                name='email'
+                name="email"
                 value={form.email}
                 onChange={handleChange}
                 required
@@ -97,7 +107,7 @@ const handleLogin= async(e)=>{
               <div className="relative">
                 <input
                   type={form.showPassword ? "text" : "password"}
-                  name='password'
+                  name="password"
                   value={form.password}
                   onChange={handleChange}
                   required
@@ -108,24 +118,24 @@ const handleLogin= async(e)=>{
                   onClick={togglePassword}
                   className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors"
                 >
-                  {form.showPassword ? (<EyeOff className="w-5 h-5" /> 
-                  ):( <Eye className="w-5 h-5" />)}
+                  {form.showPassword ? (
+                    <EyeOff className="w-5 h-5" />
+                  ) : (
+                    <Eye className="w-5 h-5" />
+                  )}
                 </button>
               </div>
             </div>
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-indigo-600 to-indigo-900 text-white py-3 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-red-600 to-indigo-red text-white py-3 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2"
             >
               <span>Sign In</span>
               <Heart className="w-4 h-4" />
             </button>
           </form>
 
-          {/* {message && (
-            <p className="mt-4 text-center font-medium text-gray-700">{message}</p>
-          )} */}
           <p className="mt-10 text-center text-sm text-gray-500">
             Not a member?
             <Link
@@ -136,9 +146,7 @@ const handleLogin= async(e)=>{
             </Link>
           </p>
         </div>
-
       </div>
-
     </div>
   );
 }

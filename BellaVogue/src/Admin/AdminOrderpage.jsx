@@ -20,7 +20,7 @@ export default function AdminOrderpage() {
         ? "Shipped"
         : currentStatus === "Shipped"
         ? "Delivered"
-        : "Delivered";
+        : "completed";
 
     try {
       await axios.patch(`http://localhost:5000/orders/${orderId}`, {
@@ -39,12 +39,9 @@ export default function AdminOrderpage() {
 
   return (
     <div className="flex min-h-screen bg-gray-100">
-      {/* Fixed Sidebar */}
       <div className="w-64 h-screen fixed">
         <AdminSidebar />
       </div>
-
-      {/* Main Content */}
       <div className="flex-1 ml-64 p-6">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
           Admin Orders

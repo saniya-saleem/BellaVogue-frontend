@@ -1,11 +1,16 @@
+import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    const savedOrders = JSON.parse(localStorage.getItem("orders")) || [];
-    setOrders(savedOrders);
+    // Fetch orders from backend instead of localStorage
+    axios
+      .get("http://localhost:5000/orders")
+      .then((res) => setOrders(res.data))
+      .catch((err) => console.error("Error fetching orders:", err));
   }, []);
 
   return (
@@ -15,12 +20,12 @@ export default function OrdersPage() {
       {orders.length === 0 ? (
         <div className="flex flex-col items-center justify-center mt-20">
           <p className="text-lg text-gray-600">🛒 No orders placed yet.</p>
-          <a
-            href="/products"
+          <Link
+            to="/products"
             className="mt-4 bg-indigo-600 text-white px-6 py-2 rounded-lg hover:bg-indigo-700 transition"
           >
             Shop Now
-          </a>
+          </Link>
         </div>
       ) : (
         <div className="space-y-6">
@@ -35,6 +40,8 @@ export default function OrdersPage() {
                   className={`px-3 py-1 text-sm rounded-full ${
                     order.status === "Pending"
                       ? "bg-yellow-100 text-yellow-700"
+                      : order.status === "Shipped"
+                      ? "bg-blue-100 text-blue-700"
                       : "bg-green-100 text-green-700"
                   }`}
                 >
@@ -43,27 +50,48 @@ export default function OrdersPage() {
               </div>
 
               <p className="text-gray-600 mb-1">
+                <strong>Name:</strong> {order.customer}
+              </p>
+              <p className="text-gray-600 mb-1">
+                <strong>Email:</strong> {order.email}
+              </p>
+              <p className="text-gray-600 mb-1">
+                <strong>Phone:</strong> {order.phone}
+              </p>
+              <p className="text-gray-600 mb-1">
+                <strong>City:</strong> {order.city}, {order.state} -{" "}
+                {order.pincode}
+              </p>
+              <p className="text-gray-600 mb-1">
+                <strong>Payment:</strong> {order.payment}
+              </p>
+              <p className="text-gray-600 mb-1">
                 <strong>Address:</strong> {order.address}
               </p>
+
               <p className="text-gray-600 mb-4">
                 <strong>Date:</strong> {order.date}
               </p>
 
               <h4 className="font-semibold mb-2">Items:</h4>
               <ul className="divide-y divide-gray-200">
-                {order.items.map((item) => (
-                  <li
-                    key={item.id}
-                    className="py-2 flex justify-between text-gray-700"
-                  >
-                    <span>
-                      {item.name} (x{item.quantity})
-                    </span>
-                    <span className="font-medium">
-                      ${(item.price * item.quantity).toFixed(2)}
-                    </span>
-                  </li>
-                ))}
+                {Array.isArray(order.items) && order.items.length > 0 ? (
+                  order.items.map((item) => (
+                    <li
+                      key={item.id}
+                      className="py-2 flex justify-between text-gray-700"
+                    >
+                      <span>
+                        {item.name} (x{item.quantity})
+                      </span>
+                      <span className="font-medium">
+                        ${(item.price * item.quantity).toFixed(2)}
+                      </span>
+                    </li>
+                  ))
+                ) : (
+                  <li className="py-2 text-gray-500 italic">No items found</li>
+                )}
               </ul>
 
               <p className="font-bold text-lg mt-4 text-right">

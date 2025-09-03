@@ -5,7 +5,6 @@ import axios from "axios";
 
 
 export default function AdminUserpage() {
-const [searchvalue,setSearchvalue]=useState("")
 const [users,setUsers]=useState([])
 
    
@@ -14,9 +13,7 @@ const [users,setUsers]=useState([])
     .then(res => setUsers(res.data))
     .catch(err => console.error(err))
  },[]);            
-   const handleSearch=(e)=>{
-    setSearchvalue(e.target.value)
-    }
+  
    const handletogglebutton = async (id)=>{
     try{
       setUsers(users.map((u)=>(
@@ -35,38 +32,17 @@ const [users,setUsers]=useState([])
    }
 
   return (
-    <div className="min-h-screen flex bg-gray-100">
-      {/* Sidebar on the left */}
-      <AdminSidebar />
-
-      {/* Main Content */}
-      <div className="flex-1 p-6">
+    <div className="flex min-h-screen">
+      <div className="w-64 fixed h-full bg-gray-100 shadow-lg">
+        <AdminSidebar />
+      </div>
+      <div className="flex-1 ml-64 p-6">
         <div className="max-w-6xl mx-auto bg-white shadow-xl rounded-2xl p-6">
-          {/* Header Section */}
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
             <h1 className="text-2xl font-bold">👥 Manage Users</h1>
-
-            {/* Search & Filter */}
             <div className="flex items-center gap-2">
-              <div className="relative">
-                <Search className="h-4 w-4 absolute left-3 top-3 text-gray-400" />
-                <input
-                  type="text"
-                  placeholder="Search users..."
-                  value={searchvalue}
-                  onChange={handleSearch}
-                  className="pl-9 pr-3 py-2 border rounded-lg text-sm focus:ring-2 focus:ring-blue-400 focus:outline-none"
-                />
-              </div>
-              <select className="border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-400 focus:outline-none">
-                <option>All</option>
-                <option>Active</option>
-                <option>Blocked</option>
-              </select>
             </div>
           </div>
-
-          {/* Users Table */}
           <div className="overflow-x-auto">
             <table className="w-full text-sm border-collapse">
               <thead>

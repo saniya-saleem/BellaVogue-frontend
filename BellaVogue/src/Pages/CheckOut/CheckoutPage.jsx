@@ -29,31 +29,43 @@ export default function CheckoutPage() {
 
   
   const handlePlaceOrder = async () => {
-    const { name, email, phone, city, state, pincode, address } = formData;
+  const { name, email, phone, city, state, pincode, address } = formData;
 
-    if (!name || !email || !phone || !city || !state || !pincode || !address) {
-      toast.error("⚠️ Please fill in all required fields.");
-      return;
-    }
+  if (!name || !email || !phone || !city || !state || !pincode || !address) {
+    toast.error("⚠️ Please fill in all required fields.");
+    return;
+  }
 
-   const order ={
-    id:"o"+Date.now(),
-    customer:name,
-    date :new Date().toISOString().split("T")[0],
-    amount:total,
-    status:"pending"
-   }
+  const order = {
+    id: "o" + Date.now(),
+    customer: formData.name,
+    amount: total,
+    phone:formData.phone,
+    city:formData.city,
+    state:formData.state,
+    pincode:formData.pincode,
+    address: formData.address,
+    payment:formData.payment,
+    date: new Date().toISOString().split("T")[0],
+    status: "Pending", // ✅ match OrdersPage casing
+    items: cartItems,
+    total: total,
+  };
 
   try {
     await axios.post("http://localhost:5000/orders", order);
 
+    const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
+    existingOrders.push(order);
+    localStorage.setItem("orders", JSON.stringify(existingOrders));
+
     clearCart();
-    toast.success(" Order placed successfully!");
+    toast.success("Order placed successfully!");
     setTimeout(() => {
-      navigate("/order");
+      navigate("/order"); // ✅ make sure path matches your route
     }, 1200);
   } catch (error) {
-    console.error(" Error placing order:", error);
+    console.error("Error placing order:", error);
     toast.error("Failed to place order. Try again.");
   }
 };
@@ -62,7 +74,6 @@ export default function CheckoutPage() {
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-100 px-6 md:px-12 py-12">
       <h2 className="text-3xl font-bold mb-8 text-center">Checkout</h2>
 
-      {/* Order Summary */}
       <div className="bg-white rounded-xl shadow p-6 mb-6">
         <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
         {cartItems.length === 0 ? (
@@ -81,7 +92,6 @@ export default function CheckoutPage() {
         <h3 className="text-lg font-bold">Total: ${total.toFixed(2)}</h3>
       </div>
 
-      {/* Shipping Form */}
       <div className="bg-white rounded-xl shadow p-6 mb-6 space-y-4">
         <h3 className="text-xl font-semibold mb-4">Shipping Details</h3>
 

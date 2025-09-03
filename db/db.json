@@ -1,22 +1,22 @@
 {
   "products": [
     {
-      "id": "1",
       "name": "Elegant Necklace",
       "price": 55.99,
       "img": "https://salty.co.in/cdn/shop/files/DazzlingBeehiveNecklace_1.png?v=1690709687&width=1800",
-      "stock": 10,
+      "stock": 1,
+      "category": "necklace",
       "rating": 4.5,
-      "category": "necklace"
+      "id": "1"
     },
     {
-      "id": "2",
       "name": "Stylish Bracelet",
       "price": 100.99,
       "img": "https://salty.co.in/cdn/shop/files/VictorianWhiteBracelet_2.jpg?v=1751919358&width=1800",
       "stock": 12,
+      "category": "bracelet",
       "rating": 5,
-      "category": "bracelet"
+      "id": "2"
     },
     {
       "id": "3",
@@ -184,7 +184,7 @@
       "name": "Hollis Studded Butterfly Silver Ring",
       "price": 66,
       "img": "https://salty.co.in/cdn/shop/files/RS13568-S.jpg?v=1753110298&width=1800",
-      "stock": 1,
+      "stock": 0,
       "category": "rings",
       "rating": 4,
       "id": "1756794705106"
@@ -221,37 +221,7 @@
       "password": "098765",
       "role": "user",
       "isBlock": false,
-      "cart": [
-        {
-          "id": "3",
-          "name": "Luxury Rings",
-          "price": 129.99,
-          "img": "https://salty.co.in/cdn/shop/files/RS14337-S_MAIN.jpg?v=1753110246&width=1800",
-          "rating": 4,
-          "category": "rings",
-          "quantity": 6
-        },
-        {
-          "id": "18",
-          "name": "Regal Radiance Stone Ring",
-          "price": 299.99,
-          "img": "https://salty.co.in/cdn/shop/files/RC24347-S_MAIN1.jpg?v=1751919364&width=1800",
-          "stock": 10,
-          "rating": 5,
-          "category": "rings",
-          "quantity": 1
-        },
-        {
-          "id": "6",
-          "name": "Blooming Luxury Gold Earring",
-          "price": 69.99,
-          "img": "https://salty.co.in/cdn/shop/files/ES13435-G_3_3fa029c2-dc4c-4f2e-b286-46dacb3b6fa4.jpg?v=1751917612&width=1800",
-          "stock": 10,
-          "rating": 4,
-          "category": "earrings",
-          "quantity": 1
-        }
-      ],
+      "cart": [],
       "orders": [],
       "wishlist": [],
       "created_at": "2025-08-22T17:43:57.384Z",
@@ -339,7 +309,7 @@
       ],
       "orders": [],
       "wishlist": [],
-      "status": "blocked"
+      "status": "active"
     },
     {
       "id": "f2fd",
@@ -373,7 +343,7 @@
       "cart": [],
       "orders": [],
       "wishlist": [],
-      "status": "active"
+      "status": "blocked"
     },
     {
       "id": "17c5",
@@ -385,7 +355,7 @@
       "cart": [],
       "orders": [],
       "wishlist": [],
-      "status": "active"
+      "status": "blocked"
     },
     {
       "id": "8397",
@@ -409,7 +379,7 @@
       "cart": [],
       "orders": [],
       "wishlist": [],
-      "status": "active"
+      "status": "blocked"
     },
     {
       "id": "c817",
@@ -418,26 +388,7 @@
       "password": "1234567",
       "role": "user",
       "isBlock": false,
-      "cart": [
-        {
-          "id": "2",
-          "name": "Stylish Bracelet",
-          "price": 89.99,
-          "img": "https://salty.co.in/cdn/shop/files/VictorianWhiteBracelet_2.jpg?v=1751919358&width=1800",
-          "rating": 5,
-          "category": "bracelet",
-          "quantity": 1
-        },
-        {
-          "id": "7",
-          "name": "Diamond Pendant",
-          "price": 199.99,
-          "img": "https://salty.co.in/cdn/shop/files/MilleniaDancingSwanNecklace_2.jpg?v=1746186204&width=1800",
-          "rating": 5,
-          "category": "necklace",
-          "quantity": 1
-        }
-      ],
+      "cart": [],
       "orders": [
         {
           "id": "o1",
@@ -455,7 +406,7 @@
         }
       ],
       "wishlist": [],
-      "status": "blocked"
+      "status": "active"
     },
     {
       "id": "07ba",
@@ -466,7 +417,29 @@
       "isBlock": false,
       "cart": [],
       "orders": [],
-      "wishlist": []
+      "wishlist": [],
+      "status": "active"
+    },
+    {
+      "id": "777",
+      "name": "admin",
+      "email": "admin@gmail.com",
+      "password": "admin@123",
+      "role": "admin",
+      "isBlock": false,
+      "status": "active",
+      "cart": [
+        {
+          "id": "2",
+          "name": "Stylish Bracelet",
+          "price": 100.99,
+          "img": "https://salty.co.in/cdn/shop/files/VictorianWhiteBracelet_2.jpg?v=1751919358&width=1800",
+          "stock": 12,
+          "rating": 5,
+          "category": "bracelet",
+          "quantity": 1
+        }
+      ]
     }
   ],
   "banners": [
@@ -489,28 +462,152 @@
       "customer": "Saniya",
       "date": "2025-09-01",
       "amount": 69.99,
-      "status": "Delivered"
+      "status": "completed"
     },
     {
       "id": "o2",
       "customer": "John",
       "date": "2025-08-30",
       "amount": 120,
-      "status": "Delivered"
+      "status": "completed"
     },
     {
       "id": "o1756715938762",
       "customer": "saniya k",
       "date": "2025-09-01",
       "amount": 109.97999999999999,
-      "status": "Delivered"
+      "status": "completed"
     },
     {
       "id": "o1756716958372",
       "customer": "anamika",
       "date": "2025-09-01",
       "amount": 199.99,
-      "status": "Delivered"
+      "status": "completed"
+    },
+    {
+      "id": "o1756874972503",
+      "customer": "saniya k",
+      "date": "2025-09-03",
+      "amount": 199.99,
+      "status": "completed"
+    },
+    {
+      "id": "o1756875032289",
+      "customer": "anamika",
+      "date": "2025-09-03",
+      "amount": 215.98000000000002,
+      "status": "completed"
+    },
+    {
+      "id": "o1756880152122",
+      "customer": "saniya k",
+      "date": "2025-09-03",
+      "amount": 129.99,
+      "status": "completed"
+    },
+    {
+      "id": "o1756880733445",
+      "customer": "saniya k",
+      "date": "2025-09-03",
+      "amount": 100.99,
+      "status": "completed",
+      "address": "dfgghjjkkl",
+      "items": [
+        {
+          "id": "2",
+          "name": "Stylish Bracelet",
+          "price": 100.99,
+          "img": "https://salty.co.in/cdn/shop/files/VictorianWhiteBracelet_2.jpg?v=1751919358&width=1800",
+          "stock": 12,
+          "rating": 5,
+          "category": "bracelet",
+          "quantity": 1
+        }
+      ],
+      "total": 100.99
+    },
+    {
+      "id": "o1756881895701",
+      "customer": "nazeeb",
+      "amount": 289.98,
+      "phone": "56780987",
+      "city": "kalpetta",
+      "state": "Kerala",
+      "pincode": "56789",
+      "address": "kalpetsyyhs",
+      "payment": "COD",
+      "date": "2025-09-03",
+      "status": "completed",
+      "items": [
+        {
+          "id": "2",
+          "name": "Stylish Bracelet",
+          "price": 89.99,
+          "img": "https://salty.co.in/cdn/shop/files/VictorianWhiteBracelet_2.jpg?v=1751919358&width=1800",
+          "rating": 5,
+          "category": "bracelet",
+          "quantity": 1
+        },
+        {
+          "id": "7",
+          "name": "Diamond Pendant",
+          "price": 199.99,
+          "img": "https://salty.co.in/cdn/shop/files/MilleniaDancingSwanNecklace_2.jpg?v=1746186204&width=1800",
+          "rating": 5,
+          "category": "necklace",
+          "quantity": 1
+        }
+      ],
+      "total": 289.98
+    },
+    {
+      "id": "d97a"
+    },
+    {
+      "id": "b0b8"
+    },
+    {
+      "id": "1750"
+    },
+    {
+      "id": "4f12"
+    },
+    {
+      "id": "o1756889100994",
+      "customer": "saniya k",
+      "amount": 388.96,
+      "phone": "987532345",
+      "city": "kalpetta",
+      "state": "Kerala",
+      "pincode": "23456",
+      "address": "kakkencherry",
+      "payment": "COD",
+      "date": "2025-09-03",
+      "status": "completed",
+      "items": [
+        {
+          "name": "Stylish Bracelet",
+          "price": 100.99,
+          "img": "https://salty.co.in/cdn/shop/files/VictorianWhiteBracelet_2.jpg?v=1751919358&width=1800",
+          "stock": 12,
+          "category": "bracelet",
+          "rating": 5,
+          "id": "2",
+          "quantity": 3
+        },
+        {
+          "id": "4",
+          "name": "Champagne Wishes Studs",
+          "price": 85.99,
+          "img": "https://salty.co.in/cdn/shop/files/ChampagneWishesStuds_1.jpg?v=1751920325&width=1800",
+          "stock": 3,
+          "rating": 4.5,
+          "category": "earrings",
+          "quantity": 1
+        }
+      ],
+      "total": 388.96
     }
   ]
 }

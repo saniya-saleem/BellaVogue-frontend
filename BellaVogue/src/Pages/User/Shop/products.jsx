@@ -17,7 +17,6 @@ export default function ProductsPage() {
   const [categoryFilter, setCategoryFilter] = useState("All");
   const [categories, setCategories] = useState(["All"]);
 
-  // Fetch products
   useEffect(() => {
     axios.get("http://localhost:5000/products").then((res) => {
       setProducts(res.data);
@@ -30,10 +29,7 @@ export default function ProductsPage() {
     });
   }, []);
 
-  // Check wishlist
   const isInWishlist = (id) => wishlistItems.some((item) => item.id === id);
-
-  // Handlers
   const handleWishlistToggle = (product) => {
     if (isInWishlist(product.id)) {
       removeFromWishlist(product.id);
@@ -50,7 +46,6 @@ export default function ProductsPage() {
     setCategoryFilter(e.target.value);
   };
 
-  // Filtered products
   const filteredProducts = products.filter((p) => {
     const matchesSearch = p.name
       .toLowerCase()
@@ -68,7 +63,6 @@ export default function ProductsPage() {
           Shop All Products
         </h2>
 
-        {/* Search + Category Filter */}
         <div className="flex flex-col md:flex-row justify-center items-center gap-4 mb-10">
           <input
             type="text"
@@ -91,7 +85,6 @@ export default function ProductsPage() {
           </select>
         </div>
 
-        {/* Products Grid */}
         {filteredProducts.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8">
             {filteredProducts.map((product) => (

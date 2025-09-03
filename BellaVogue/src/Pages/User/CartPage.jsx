@@ -10,7 +10,6 @@ export default function CartPage() {
     useContext(CartContext);
   const navigate = useNavigate();
 
-  // Ensure price is always treated as number
   const total = cartItems.reduce(
     (acc, item) => acc + Number(item.price) * item.quantity,
     0
@@ -32,7 +31,7 @@ export default function CartPage() {
           <>
             <div className="space-y-6">
               {cartItems.map((item) => {
-                const price = Number(item.price) || 0; // convert to number safely
+                const price = Number(item.price) || 0; 
                 const lineTotal = price * item.quantity;
 
                 return (

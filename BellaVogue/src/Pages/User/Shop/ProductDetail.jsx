@@ -12,7 +12,8 @@ export default function ProductDetail() {
   const navigate = useNavigate();
 
   const { addToCart, isInCart } = useContext(CartContext);
-  const { wishlistItems, addToWishlist, removeFromWishlist } = useContext(WishlistContext);
+  const { wishlistItems, addToWishlist, removeFromWishlist } =
+    useContext(WishlistContext);
 
   const [product, setProduct] = useState(null);
 
@@ -35,7 +36,7 @@ export default function ProductDetail() {
   };
 
   const handleAddToCart = () => {
-    if (!product) return;
+    if (!product || product.stock === 0) return;
     addToCart(product);
   };
 
@@ -47,17 +48,13 @@ export default function ProductDetail() {
     <>
       <Navbar />
       <div className="px-6 md:px-12 py-12">
-        {/* Back Button */}
         <button
           onClick={() => navigate(-1)}
           className="mb-6 text-indigo-600 hover:underline"
         >
           Back to Products
         </button>
-
-        {/* Product Layout */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-          {/* Product Image */}
           <div className="flex justify-center">
             <img
               src={product.img}
@@ -65,8 +62,6 @@ export default function ProductDetail() {
               className="w-full max-w-md rounded-xl shadow-lg"
             />
           </div>
-
-          {/* Product Details */}
           <div>
             <h1 className="text-3xl font-bold text-gray-800">{product.name}</h1>
             <p className="text-gray-600 mt-2 capitalize">{product.category}</p>
@@ -79,22 +74,32 @@ export default function ProductDetail() {
               {product.description || "No description available."}
             </p>
 
-            {/* Action Buttons */}
+            <p className="mt-4 text-lg">
+              {product.stock > 0 ? (
+                <span className="text-green-600 font-semibold">
+                  In Stock ({product.stock} available)
+                </span>
+              ) : (
+                <span className="text-red-600 font-semibold">Out of Stock</span>
+              )}
+            </p>
+
             <div className="flex gap-4 mt-8">
-              {/* Cart Button */}
               <button
                 onClick={handleAddToCart}
                 className={`px-6 py-3 rounded-lg shadow-md transition font-semibold ${
-                  isInCart(product.id)
+                  isInCart(product.id) || product.stock === 0
                     ? "bg-gray-400 text-white cursor-not-allowed"
                     : "bg-indigo-600 text-white hover:bg-indigo-700"
                 }`}
-                disabled={isInCart(product.id)}
+                disabled={isInCart(product.id) || product.stock === 0}
               >
-                {isInCart(product.id) ? "In Cart" : "Add to Cart"}
+                {product.stock === 0
+                  ? "Out of Stock"
+                  : isInCart(product.id)
+                  ? "In Cart"
+                  : "Add to Cart"}
               </button>
-
-              {/* Wishlist Button */}
               <button
                 onClick={handleWishlistToggle}
                 className={`px-6 py-3 rounded-lg shadow-md transition font-semibold ${

@@ -14,16 +14,16 @@ export const CartProvider = ({ children }) => {
     if (user) {
       fetchCart(user.id);
     } else {
-      setCartItems([]); // clear cart when logged out
+      setCartItems([]); 
     }
-  }, [user]);   // 👈 re-run whenever user changes
+  }, [user]);   
 
   const fetchCart = async (userId) => {
     try {
       const res = await axios.get(`${API_URL}/${userId}`);
       setCartItems(res.data.cart || []);
     } catch (err) {
-      console.error("❌ Error fetching cart:", err.message);
+      console.error(" Error fetching cart:", err.message);
       setCartItems([]);
     }
   };

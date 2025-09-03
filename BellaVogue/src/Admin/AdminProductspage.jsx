@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import AdminSidebar from "../Components/AdminBar/AdminSidebar";
 
 export default function AdminProductPage() {
   const [products, setProducts] = useState([]);
@@ -113,59 +114,143 @@ export default function AdminProductPage() {
   };
 
   return (
-    <div className="p-4">
-      <h1 className="text-xl font-bold mb-4">Admin Product Management</h1>
-
-      {/* Form */}
-      <div className="space-y-2 mb-4">
-        <input type="text" name="name" placeholder="Name" value={form.name} onChange={handleChange} className="border p-2" />
-        <input type="number" name="price" placeholder="Price" value={form.price} onChange={handleChange} className="border p-2" />
-        <input type="text" name="img" placeholder="Image URL" value={form.img} onChange={handleChange} className="border p-2" />
-        <input type="number" name="stock" placeholder="Stock" value={form.stock} onChange={handleChange} className="border p-2" />
-        <input type="text" name="category" placeholder="Category" value={form.category} onChange={handleChange} className="border p-2" />
-        <input type="number" step="0.1" max="5" name="rating" placeholder="Rating (0-5)" value={form.rating} onChange={handleChange} className="border p-2" />
-
-        {editId ? (
-          <button onClick={handleSave} className="bg-green-500 text-white p-2">Save</button>
-        ) : (
-          <button onClick={handleAdd} className="bg-blue-500 text-white p-2">Add</button>
-        )}
+    <div className="flex min-h-screen bg-gray-50">
+      <div className="w-64 fixed h-full bg-white shadow-md border-r">
+        <AdminSidebar />
       </div>
+      <div className="flex-1 ml-64 p-8">
+        <h1 className="text-2xl font-bold mb-6 text-gray-800">
+          Admin Product Management
+        </h1>
+        <div className="bg-white shadow rounded-lg p-6 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <input
+              type="text"
+              name="name"
+              placeholder="Product Name"
+              value={form.name}
+              onChange={handleChange}
+              className="border rounded-lg p-2 w-full"
+            />
+            <input
+              type="number"
+              name="price"
+              placeholder="Price"
+              value={form.price}
+              onChange={handleChange}
+              className="border rounded-lg p-2 w-full"
+            />
+            <input
+              type="text"
+              name="img"
+              placeholder="Image URL"
+              value={form.img}
+              onChange={handleChange}
+              className="border rounded-lg p-2 w-full"
+            />
+            <input
+              type="number"
+              name="stock"
+              placeholder="Stock"
+              value={form.stock}
+              onChange={handleChange}
+              className="border rounded-lg p-2 w-full"
+            />
+            <input
+              type="text"
+              name="category"
+              placeholder="Category"
+              value={form.category}
+              onChange={handleChange}
+              className="border rounded-lg p-2 w-full"
+            />
+            <input
+              type="number"
+              step="0.1"
+              max="5"
+              name="rating"
+              placeholder="Rating (0-5)"
+              value={form.rating}
+              onChange={handleChange}
+              className="border rounded-lg p-2 w-full"
+            />
+          </div>
 
-      {/* Table */}
-      <table className="w-full border">
-        <thead>
-          <tr>
-            <th className="border p-2">Image</th>
-            <th className="border p-2">Name</th>
-            <th className="border p-2">Price</th>
-            <th className="border p-2">Stock</th>
-            <th className="border p-2">Category</th>
-            <th className="border p-2">Rating</th>
-            <th className="border p-2">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((p) => (
-            <tr key={p.id}>
-              <td className="border p-2">
-                <img src={p.img} alt={p.name} className="w-16 h-16 object-cover" />
-              </td>
-              <td className="border p-2">{p.name}</td>
-              <td className="border p-2">₹{Number(p.price).toFixed(2)}</td>
-              <td className="border p-2">
-                {p.stock > 0 ? p.stock : <span className="text-red-500">Out of stock</span>}
-              </td>
-              <td className="border p-2">{p.category}</td>
-              <td className="border p-2">{p.rating}</td>
-              <td className="border p-2 space-x-2">
-                <button onClick={() => handleEdit(p)} className="bg-yellow-500 text-white px-2">Edit</button>
-                <button onClick={() => handleDelete(p.id)} className="bg-red-500 text-white px-2">Delete</button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+          {editId ? (
+            <button
+              onClick={handleSave}
+              className="mt-4 bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg shadow"
+            >
+               Save Changes
+            </button>
+          ) : (
+            <button
+              onClick={handleAdd}
+              className="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg shadow"
+            >
+              + Add Product
+            </button>
+          )}
+        </div>
+        <div className="bg-white shadow rounded-lg overflow-hidden">
+          <table className="w-full border-collapse">
+            <thead className="bg-gray-100 text-gray-700">
+              <tr>
+                <th className="border p-3 text-left">Image</th>
+                <th className="border p-3 text-left">Name</th>
+                <th className="border p-3 text-left">Price</th>
+                <th className="border p-3 text-left">Stock</th>
+                <th className="border p-3 text-left">Category</th>
+                <th className="border p-3 text-left">Rating</th>
+                <th className="border p-3 text-center">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products.map((p) => (
+                <tr
+                  key={p.id}
+                  className="hover:bg-gray-50 transition"
+                >
+                  <td className="border p-3">
+                    <img
+                      src={p.img}
+                      alt={p.name}
+                      className="w-16 h-16 object-cover rounded"
+                    />
+                  </td>
+                  <td className="border p-3 font-medium">{p.name}</td>
+                  <td className="border p-3">₹{Number(p.price).toFixed(2)}</td>
+                  <td className="border p-3">
+                    {p.stock > 0 ? (
+                      p.stock
+                    ) : (
+                      <span className="text-red-500 font-semibold">
+                        Out of stock
+                      </span>
+                    )}
+                  </td>
+                  <td className="border p-3">{p.category}</td>
+                  <td className="border p-3">{p.rating}</td>
+                  <td className="border p-3 text-center space-x-2">
+                    <button
+                      onClick={() => handleEdit(p)}
+                      className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded shadow"
+                    >
+                       Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(p.id)}
+                      className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded shadow"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

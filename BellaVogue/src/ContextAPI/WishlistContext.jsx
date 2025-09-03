@@ -4,7 +4,7 @@ import { AuthContext } from "./AuthContext";
 export const WishlistContext = createContext();
 
 export function WishlistProvider({ children }) {
-  const { user } = useContext(AuthContext);   // 👈 get logged-in user
+  const { user } = useContext(AuthContext);  
   const [wishlistItems, setWishlistItems] = useState([]);
 
   useEffect(() => {
@@ -14,9 +14,8 @@ export function WishlistProvider({ children }) {
     } else {
       setWishlistItems([]);
     }
-  }, [user]);   // 👈 re-run when login/logout happens
+  }, [user]);   
 
-  // Save wishlist when it changes
   useEffect(() => {
     if (user) {
       localStorage.setItem(`wishlist_${user.id}`, JSON.stringify(wishlistItems));
