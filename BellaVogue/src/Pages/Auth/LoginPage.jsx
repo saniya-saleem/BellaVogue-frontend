@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Eye, EyeOff, ShoppingBag, Heart, Sparkles } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../ContextAPI/AuthContext";
-import axios from "axios";
+import API from "../../api/api";
 import { toast } from "react-toastify";
 
 export default function LoginPage() {
@@ -14,16 +14,19 @@ export default function LoginPage() {
 
   const navigate = useNavigate();
   const { user, login } = useContext(AuthContext);
+
+ 
   useEffect(() => {
     if (user) {
-      if (user.role === "admin") {
+      if (user.is_staff) {
         navigate("/admin");
       } else {
         navigate("/home");
       }
     }
   }, [user, navigate]);
-   const handleChange = (e) => {
+
+  const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
@@ -35,43 +38,30 @@ export default function LoginPage() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    if (form.password.length <= 3) {
-      toast.error("Password must be greater than 3 characters");
-      return;
-    }
-
     try {
-      const res = await axios.get("http://localhost:5000/users", {
-        params: { email: form.email, password: form.password },
+      const res = await API.post("login/", {
+        email: form.email,
+        password: form.password,
       });
 
-      if (res.data.length === 0) {
-        toast.error("Invalid email or password. Try again.");
+      if (res.data.user.is_blocked) {
+        toast.error("🚫 Your account is blocked. Please contact admin.");
         return;
       }
 
-      const loggedInUser = res.data[0];
+      login(res.data.user, {
+        access: res.data.access,
+        refresh: res.data.refresh,
+      });
 
-      if (loggedInUser.status == 'blocked') { 
-        toast.error("Your account has been blocked. Please contact support.");
-        return;
-      }
-      login(loggedInUser);
-      toast.success("Login successful! Welcome back");
-
-      if (loggedInUser.role === "admin") {
-        navigate("/admin");
-      } else {
-        navigate("/home");
-      }
+      toast.success("Login successful!");
     } catch (error) {
-      console.error(error);
-      toast.error("Something went wrong. Try again later");
+      toast.error("Invalid email or password");
     }
   };
-  
 
-  return (
+
+return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md relative">
         <div className="bg-white/90 backdrop-blur-sm rounded-3xl shadow-2xl p-8 border border-indigo-100">
@@ -129,7 +119,7 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-red-600 to-indigo-red text-white py-3 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2"
+              className="w-full bg-gradient-to-r from-indigo-600 to-indigo-blue text-white py-3 px-6 rounded-xl font-semibold shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2"
             >
               <span>Sign In</span>
               <Heart className="w-4 h-4" />

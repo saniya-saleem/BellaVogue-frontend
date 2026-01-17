@@ -22,6 +22,8 @@ import AdminProductspage from "./Admin/AdminProductspage";
 import Navbar from "./Components/Common/Navbar";
 import Footer from "./Components/Common/Footer";
 import ProtectedRoute from "./Pages/Auth/ProtectedRoute";
+import AdminUserDetail from "./Admin/AdminUserDetail";
+
 
 export default function App() {
   return (
@@ -41,12 +43,21 @@ export default function App() {
               <Route path="/cart"element={<CartPage />}/>
               <Route path="/wishlist"element={<WishlistPage />}/>
               <Route path="/checkout" element={<CheckoutPage />}/>
-              <Route path="/order"element={<OrdersPage />}/>
+              <Route path="/orders"element={<OrdersPage />}/>
                 
               <Route path="/admin"element={<ProtectedRoute role="admin"> <AdminDashboard /> </ProtectedRoute>}/>
               <Route path="/users" element={<ProtectedRoute role="admin"><AdminUserpage /></ProtectedRoute>}/>
               <Route path="/aorders"element={<ProtectedRoute role="admin"> <AdminOrderpage /></ProtectedRoute>}/>
               <Route path="/product"element={<ProtectedRoute role="admin"><AdminProductspage /></ProtectedRoute>}/>
+               <Route
+                path="/admin/users/:id"
+                element={
+                  <ProtectedRoute role="admin">
+                    <AdminUserDetail />
+                  </ProtectedRoute>
+                }
+              />
+
             </Routes>
             <ToastContainer position="top-center" autoClose={3000} />
           </Router>

@@ -1,11 +1,11 @@
 import React, { useContext, useState, useEffect } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { CartContext } from "../../ContextAPI/CartContext";
 import { WishlistContext } from "../../ContextAPI/WishlistContext";
 import ProductCard from "../../Components/Common/ProductCard";
 import Navbar from "../../Components/Common/Navbar";
 import Footer from "../../Components/Common/Footer";
+import API from "../../api/api";
 
 export default function HomePage() {
   const { addToCart, isInCart } = useContext(CartContext);
@@ -20,14 +20,14 @@ export default function HomePage() {
 
  
     useEffect(() => {
-    axios.get("http://localhost:5000/products").then((res) => {
+    API.get("products/").then((res) => {
       setProducts(res.data.slice(0, 8));
     });
   }, []);
 
  
     useEffect(() => {
-    axios.get("http://localhost:5000/banners").then((res) => {
+    API.get("banners/").then((res) => {
       setBanners(res.data);
     });
   }, []);
@@ -58,7 +58,7 @@ export default function HomePage() {
         <div
           className="relative w-full h-[60vh] flex flex-col items-center justify-center text-center text-white transition-all duration-1000"
           style={{
-            backgroundImage: `url(${banners[currentBanner].url})`,
+            backgroundImage: `url(${banners[currentBanner].image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
           }}
@@ -103,6 +103,7 @@ export default function HomePage() {
                 addToCart={addToCart}
                 isInWishlist={isInWishlist}
                 handleWishlistToggle={handleWishlistToggle}
+                
               />
             ))}
           </div>
@@ -116,3 +117,4 @@ export default function HomePage() {
     </div>
   );
 }
+

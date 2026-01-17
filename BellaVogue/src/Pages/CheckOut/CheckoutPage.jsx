@@ -1,11 +1,23 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useContext } from "react";
+import {
+  ShoppingBag,
+  MapPin,
+  CreditCard,
+  Phone,
+  Mail,
+  User,
+  Home,
+} from "lucide-react";
 import { CartContext } from "../../ContextAPI/CartContext";
-import { useNavigate } from "react-router-dom";
+import Navbar from "../../Components/Common/Navbar";
 import { toast } from "react-toastify";
-import axios from "axios";
+import API from "../../api/api";
+import { useNavigate } from "react-router-dom";
 
 export default function CheckoutPage() {
   const { cartItems, clearCart } = useContext(CartContext);
+  const navigate = useNavigate();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,9 +29,8 @@ export default function CheckoutPage() {
     payment: "COD",
   });
 
-  const navigate = useNavigate();
   const total = cartItems.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, item) => acc + item.product_price * item.quantity,
     0
   );
 
@@ -27,171 +38,224 @@ export default function CheckoutPage() {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  
-  const handlePlaceOrder = async () => {
-  const { name, email, phone, city, state, pincode, address } = formData;
+ 
+  const validateForm = () => {
+    const { name, email, phone, city, state, pincode, address } = formData;
 
-  if (!name || !email || !phone || !city || !state || !pincode || !address) {
-    toast.error("⚠️ Please fill in all required fields.");
-    return;
-  }
+    if (!name || !email || !phone || !city || !state || !pincode || !address) {
+      toast.error("⚠️ Please fill all required fields");
+      return false;
+    }
 
-  const order = {
-    id: "o" + Date.now(),
-    customer: formData.name,
-    amount: total,
-    phone:formData.phone,
-    city:formData.city,
-    state:formData.state,
-    pincode:formData.pincode,
-    address: formData.address,
-    payment:formData.payment,
-    date: new Date().toISOString().split("T")[0],
-    status: "Pending", // ✅ match OrdersPage casing
-    items: cartItems,
-    total: total,
+    if (cartItems.length === 0) {
+      toast.error("🛒 Your cart is empty");
+      return false;
+    }
+
+    return true;
   };
 
+  const handlePlaceOrder = async () => {
+  if (!validateForm()) return;
+
   try {
-    await axios.post("http://localhost:5000/orders", order);
+    await API.post("checkout/", {
+      ...formData,
+      payment_method: "COD",
+      items: cartItems,
+    });
 
-    const existingOrders = JSON.parse(localStorage.getItem("orders")) || [];
-    existingOrders.push(order);
-    localStorage.setItem("orders", JSON.stringify(existingOrders));
-
-    clearCart();
+    await clearCart(); 
     toast.success("Order placed successfully!");
-    setTimeout(() => {
-      navigate("/order"); // ✅ make sure path matches your route
-    }, 1200);
-  } catch (error) {
-    console.error("Error placing order:", error);
-    toast.error("Failed to place order. Try again.");
+
+    navigate("/orders"); 
+
+  } catch (err) {
+    console.error("ORDER ERROR:", err);
+    toast.error("Order failed");
   }
 };
-    
+
+
+
+  const handleRazorpay = async () => {
+  if (!validateForm()) return;
+
+  try {
+    const res = await API.post("razorpay/order/", {
+      amount: Math.round(total * 100),
+    });
+
+    const options = {
+      key: res.data.key,
+      amount: res.data.amount,
+      currency: "INR",
+      order_id: res.data.razorpay_order_id, 
+
+      handler: async function (response) {
+        try {
+          await API.post("razorpay/verify/", {
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_signature: response.razorpay_signature,
+          });
+
+          await API.post("checkout/", {
+            ...formData,
+            payment_method: "RAZORPAY",
+            razorpay_payment_id: response.razorpay_payment_id,
+            items: cartItems,
+          });
+
+          await clearCart();
+          toast.success("Payment successful!");
+          navigate("/orders");
+
+        } catch (err) {
+          console.error("VERIFY ERROR:", err.response?.data || err);
+          toast.error("Payment verification failed");
+        }
+      },
+    };
+
+    const rzp = new window.Razorpay(options);
+    rzp.open();
+
+  } catch (err) {
+    console.error("RAZORPAY ERROR:", err.response?.data || err);
+    toast.error("Payment failed");
+  }
+};
+
+
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-100 px-6 md:px-12 py-12">
-      <h2 className="text-3xl font-bold mb-8 text-center">Checkout</h2>
+    <>
+      <Navbar />
 
-      <div className="bg-white rounded-xl shadow p-6 mb-6">
-        <h3 className="text-xl font-semibold mb-4">Order Summary</h3>
-        {cartItems.length === 0 ? (
-          <p className="text-gray-500">Your cart is empty.</p>
-        ) : (
-          cartItems.map((item) => (
-            <div key={item.id} className="flex justify-between mb-2">
-              <p>
-                {item.name} (x{item.quantity})
-              </p>
-              <p>${(item.price * item.quantity).toFixed(2)}</p>
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+
+          
+          <div className="text-center mb-10">
+            <h1 className="text-4xl font-bold text-gray-900 mb-2">Checkout</h1>
+            <p className="text-gray-600">Complete your purchase</p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            
+            <div className="lg:col-span-2 space-y-6">
+
+              
+              <div className="bg-white rounded-2xl shadow-sm border p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <MapPin className="text-blue-600" />
+                  <h2 className="text-2xl font-semibold">Shipping Details</h2>
+                </div>
+
+                <div className="space-y-4">
+                  <div className="relative">
+                    <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                    <input name="name" value={formData.name} onChange={handleChange} placeholder="Name"
+                      className="w-full pl-11 py-3 border rounded-lg" />
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-4">
+                    <div className="relative">
+                      <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                      <input name="email" value={formData.email} onChange={handleChange} placeholder="Email"
+                        className="w-full pl-11 py-3 border rounded-lg" />
+                    </div>
+
+                    <div className="relative">
+                      <Phone className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                      <input name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone"
+                        className="w-full pl-11 py-3 border rounded-lg" />
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-3 gap-4">
+                    <input name="city" value={formData.city} onChange={handleChange} placeholder="City"
+                      className="w-full px-4 py-3 border rounded-lg" />
+                    <input name="state" value={formData.state} onChange={handleChange} placeholder="State"
+                      className="w-full px-4 py-3 border rounded-lg" />
+                    <input name="pincode" value={formData.pincode} onChange={handleChange} placeholder="Pincode"
+                      className="w-full px-4 py-3 border rounded-lg" />
+                  </div>
+
+                  <div className="relative">
+                    <Home className="absolute left-3 top-3 text-gray-400" />
+                    <textarea name="address" value={formData.address} onChange={handleChange}
+                      placeholder="House no., Street, Landmark"
+                      className="w-full pl-11 py-3 border rounded-lg resize-none" />
+                  </div>
+                </div>
+              </div>
+
+              
+              <div className="bg-white rounded-2xl shadow-sm border p-8">
+                <div className="flex items-center gap-3 mb-6">
+                  <CreditCard className="text-purple-600" />
+                  <h2 className="text-2xl font-semibold">Payment Method</h2>
+                </div>
+
+                <div className="space-y-3">
+                  <label className="flex items-center p-4 border rounded-lg cursor-pointer">
+                    <input type="radio" name="payment" value="COD"
+                      checked={formData.payment === "COD"} onChange={handleChange} />
+                    <span className="ml-4">Cash on Delivery</span>
+                  </label>
+
+                  <label className="flex items-center p-4 border rounded-lg cursor-pointer">
+                    <input type="radio" name="payment" value="RAZORPAY"
+                      checked={formData.payment === "RAZORPAY"} onChange={handleChange} />
+                    <span className="ml-4">UPI / Razorpay</span>
+                  </label>
+                </div>
+              </div>
             </div>
-          ))
-        )}
-        <hr className="my-4" />
-        <h3 className="text-lg font-bold">Total: ${total.toFixed(2)}</h3>
-      </div>
 
-      <div className="bg-white rounded-xl shadow p-6 mb-6 space-y-4">
-        <h3 className="text-xl font-semibold mb-4">Shipping Details</h3>
+           
+            <div className="bg-white rounded-2xl shadow-sm border p-8 sticky top-8">
+              <div className="flex items-center gap-3 mb-6">
+                <ShoppingBag className="text-green-600" />
+                <h2 className="text-2xl font-semibold">Order Summary</h2>
+              </div>
 
-        <input
-          type="text"
-          name="name"
-          value={formData.name}
-          onChange={handleChange}
-          placeholder="Full Name"
-          className="w-full border rounded-lg p-3"
-        />
+              {cartItems.map(item => (
+                <div key={item.id} className="flex justify-between mb-3 border-b pb-3">
+                  <div>
+                    <p className="font-medium">{item.product_name}</p>
+                    <p className="text-sm text-gray-500">Qty: {item.quantity}</p>
+                  </div>
+                  <p>₹{item.product_price * item.quantity}</p>
+                </div>
+              ))}
 
-        <input
-          type="email"
-          name="email"
-          value={formData.email}
-          onChange={handleChange}
-          placeholder="Email Address"
-          className="w-full border rounded-lg p-3"
-        />
+              <div className="flex justify-between font-bold text-lg pt-4 border-t">
+                <span>Total</span>
+                <span>₹{total}</span>
+              </div>
 
-        <input
-          type="tel"
-          name="phone"
-          value={formData.phone}
-          onChange={handleChange}
-          placeholder="Phone Number"
-          className="w-full border rounded-lg p-3"
-        />
+              {formData.payment === "COD" ? (
+                <button onClick={handlePlaceOrder}
+                  className="w-full mt-6 bg-green-600 text-white py-4 rounded-lg">
+                  Place Order
+                </button>
+              ) : (
+                <button onClick={handleRazorpay}
+                  className="w-full mt-6 bg-indigo-600 text-white py-4 rounded-lg">
+                  Proceed to Payment
+                </button>
+              )}
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <input
-            type="text"
-            name="city"
-            value={formData.city}
-            onChange={handleChange}
-            placeholder="City"
-            className="w-full border rounded-lg p-3"
-          />
+              <p className="text-xs text-center mt-4">🔒 Secure checkout</p>
+            </div>
 
-          <select
-            name="state"
-            value={formData.state}
-            onChange={handleChange}
-            className="w-full border rounded-lg p-3"
-          >
-            <option value="">Select State</option>
-            <option value="Maharashtra">Maharashtra</option>
-            <option value="Karnataka">Karnataka</option>
-            <option value="Kerala">Kerala</option>
-            <option value="Tamil Nadu">Tamil Nadu</option>
-            <option value="Gujarat">Gujarat</option>
-            <option value="Delhi">Delhi</option>
-            <option value="Uttar Pradesh">Uttar Pradesh</option>
-            <option value="West Bengal">West Bengal</option>
-            <option value="Rajasthan">Rajasthan</option>
-            <option value="Punjab">Punjab</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-
-        <input
-          type="text"
-          name="pincode"
-          value={formData.pincode}
-          onChange={handleChange}
-          placeholder="Pincode"
-          className="w-full border rounded-lg p-3"
-        />
-
-        <textarea
-          name="address"
-          value={formData.address}
-          onChange={handleChange}
-          placeholder="Full Address"
-          className="w-full border rounded-lg p-3"
-        />
-
-        <div>
-          <h4 className="font-semibold mb-2">Payment Method</h4>
-          <select
-            name="payment"
-            value={formData.payment}
-            onChange={handleChange}
-            className="w-full border rounded-lg p-3"
-          >
-            <option value="COD">Cash on Delivery</option>
-            <option value="Card">Credit/Debit Card</option>
-            <option value="UPI">UPI</option>
-            <option value="NetBanking">Net Banking</option>
-          </select>
+          </div>
         </div>
       </div>
-
-      <button
-        onClick={handlePlaceOrder}
-        className="bg-green-600 text-white px-6 py-3 rounded-xl hover:bg-green-700 transition w-full"
-      >
-        Place Order
-      </button>
-    </div>
+    </>
   );
 }

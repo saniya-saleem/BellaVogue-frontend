@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
+import API from "../../../api/api";
 
 import { CartContext } from "../../../ContextAPI/CartContext";
 import { WishlistContext } from "../../../ContextAPI/WishlistContext";
@@ -18,8 +18,8 @@ export default function ProductDetail() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`http://localhost:5000/products/${id}`)
+    API
+      .get(`products/${id}/`)
       .then((res) => setProduct(res.data))
       .catch((err) => console.error("Error fetching product:", err));
   }, [id]);
@@ -57,14 +57,14 @@ export default function ProductDetail() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
           <div className="flex justify-center">
             <img
-              src={product.img}
+              src={product.image}
               alt={product.name}
               className="w-full max-w-md rounded-xl shadow-lg"
             />
           </div>
           <div>
             <h1 className="text-3xl font-bold text-gray-800">{product.name}</h1>
-            <p className="text-gray-600 mt-2 capitalize">{product.category}</p>
+            <p className="text-gray-600 mt-2 capitalize">{product.category?.name}</p>
 
             <p className="text-2xl font-semibold text-indigo-600 mt-4">
               ${product.price}

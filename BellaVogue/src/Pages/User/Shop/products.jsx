@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
+import API from "../../../api/api";
 
 import { CartContext } from "../../../ContextAPI/CartContext";
 import { WishlistContext } from "../../../ContextAPI/WishlistContext";
@@ -18,18 +18,22 @@ export default function ProductsPage() {
   const [categories, setCategories] = useState(["All"]);
 
   useEffect(() => {
-    axios.get("http://localhost:5000/products").then((res) => {
-      setProducts(res.data);
+    API.get("products/")
+      .then((res) => {
+        setProducts(res.data);
 
       const uniqueCategories = [
-        "All",
-        ...new Set(res.data.map((p) => p.category)),
-      ];
-      setCategories(uniqueCategories);
-    });
+      "All",
+      ...new Set(res.data.map((p) => p.category_name)),
+];
+
+        setCategories(uniqueCategories);
+      })
+      .catch((err) => console.log("Error fetching products:", err));
   }, []);
 
   const isInWishlist = (id) => wishlistItems.some((item) => item.id === id);
+
   const handleWishlistToggle = (product) => {
     if (isInWishlist(product.id)) {
       removeFromWishlist(product.id);
@@ -38,22 +42,16 @@ export default function ProductsPage() {
     }
   };
 
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setCategoryFilter(e.target.value);
-  };
-
   const filteredProducts = products.filter((p) => {
     const matchesSearch = p.name
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
     const matchesCategory =
-      categoryFilter === "All" || p.category === categoryFilter;
-    return matchesSearch && matchesCategory;
-  });
+    categoryFilter === "All" ||
+    p.category_name === categoryFilter;
+
+      return matchesSearch && matchesCategory;
+    });
 
   return (
     <>
@@ -68,18 +66,18 @@ export default function ProductsPage() {
             type="text"
             placeholder="Search products..."
             value={searchTerm}
-            onChange={handleSearchChange}
-            className="w-full md:w-1/2 px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full md:w-1/2 px-4 py-2 rounded-xl border border-gray-300"
           />
 
           <select
             value={categoryFilter}
-            onChange={handleCategoryChange}
-            className="w-full md:w-1/4 px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            onChange={(e) => setCategoryFilter(e.target.value)}
+            className="w-full md:w-1/4 px-4 py-2 rounded-xl border border-gray-300"
           >
             {categories.map((cat) => (
               <option key={cat} value={cat}>
-                {cat.charAt(0).toUpperCase() + cat.slice(1)}
+                {cat}
               </option>
             ))}
           </select>

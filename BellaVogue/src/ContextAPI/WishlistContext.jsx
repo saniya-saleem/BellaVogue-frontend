@@ -1,49 +1,75 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
+import API from "../api/api";
 import { AuthContext } from "./AuthContext";
+import { toast } from "react-toastify";
 
 export const WishlistContext = createContext();
 
 export function WishlistProvider({ children }) {
-  const { user } = useContext(AuthContext);  
+  const { user } = useContext(AuthContext);
   const [wishlistItems, setWishlistItems] = useState([]);
 
+ 
   useEffect(() => {
     if (user) {
-      const storedWishlist = localStorage.getItem(`wishlist_${user.id}`);
-      setWishlistItems(storedWishlist ? JSON.parse(storedWishlist) : []);
+      fetchWishlist();
     } else {
       setWishlistItems([]);
     }
-  }, [user]);   
+  }, [user]);
 
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem(`wishlist_${user.id}`, JSON.stringify(wishlistItems));
+
+  const fetchWishlist = async () => {
+    try {
+      const res = await API.get("wishlist/");
+      setWishlistItems(res.data);
+    } catch (error) {
+      console.error("Fetch wishlist error:", error);
+      setWishlistItems([]);
     }
-  }, [wishlistItems, user]);
+  };
 
-  const addToWishlist = (product) => {
+ 
+  const addToWishlist = async (product) => {
     if (!user) {
-      alert("Please login to add items to wishlist");
+      toast.error("Please login to add wishlist");
       return;
     }
-    if (!wishlistItems.find((item) => item.id === product.id)) {
-      setWishlistItems([...wishlistItems, product]);
+
+    try {
+      await API.post("wishlist/add/", {
+        product_id: product.id,
+      });
+      fetchWishlist();
+      toast.success("❤️ Added to wishlist!");
+    } catch (error) {
+      toast.info("Already in wishlist");
     }
   };
 
-  const removeFromWishlist = (id) => {
-    if (!user) return;
-    setWishlistItems(wishlistItems.filter(item => item.id !== id));
+  
+  const removeFromWishlist = async (wishlistItemId) => {
+    try {
+      await API.delete(`wishlist/remove/${wishlistItemId}/`);
+      fetchWishlist();
+      toast.warn("Removed from wishlist");
+    } catch (error) {
+      toast.error("Failed to remove wishlist item");
+    }
   };
 
-  const clearWishlist = () => {
-    if (!user) return;
-    setWishlistItems([]);
-  };
+  const isInWishlist = (productId) =>
+    wishlistItems.some((item) => item.product === productId);
 
   return (
-    <WishlistContext.Provider value={{ wishlistItems, addToWishlist, removeFromWishlist, clearWishlist }}>
+    <WishlistContext.Provider
+      value={{
+        wishlistItems,
+        addToWishlist,
+        removeFromWishlist,
+        isInWishlist,
+      }}
+    >
       {children}
     </WishlistContext.Provider>
   );

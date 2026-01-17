@@ -1,79 +1,65 @@
 import React,{useState} from "react";
-import axios from "axios"
 import { Eye, EyeOff, ShoppingBag, Sparkles, User, Mail, Lock } from "lucide-react";
 import {Link, useNavigate} from "react-router-dom"
 import { toast } from "react-toastify";
+import API from "../../api/api";
 export default function RegisterPage(){
    const [showPassword,setShowPassword]=useState(false)
    const [showConfirmPassword,setConfirmPassword]=useState(false);
    const navigate=useNavigate();
-
-  const[formData,setFormData]=useState({
-    firstName:"",
-    lastName:"",
-    email:"",
-    password:"",
-    confirmPassword:"",
+   
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
   });
 
-  const handleChange=(e)=>{
-    const {name,value}=e.target;
-    setFormData((prev)=>({
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
       ...prev,
-     [name]:value,
+      [name]: value,
     }));
-  }
-
-const handleRegister=async (e)=>{
-  e.preventDefault();
-
-  if (formData.password !== formData.confirmPassword){
-   toast.error("your password does not match");
-    return;
-  }
-  else if(formData.password.length <=3){
-    toast.error("your password must be greater than three character")
-    return;
-  }
-  try{
-    const {data} =await axios.get(`http://localhost:5000/users`, {
-        params:{email:formData.email},
-
-})
-   if(data.length >0){
-    toast("user already exists!!");
-    return;
-
-   }
-  
-  const newUser={
-    name:`${formData.firstName} ${formData.lastName}`,
-    email:formData.email,
-    password:formData.password,
-    role:"user",
-    isBlock:false,
-    cart:[],
-    orders:[],
-    wishlist:[], 
   };
-  await axios.post("http://localhost:5000/users",newUser);
 
-  toast.success("registration successful! you can now login.");
-  setFormData({
-    firstName:"",
-    lastName:"",
-    email:"",
-    password:"",
-    confirmPassword :"",
-  })
-  navigate("/login")
-}
+  const handleRegister = async (e) => {
+    e.preventDefault();
 
-catch(err){
-  console.error("error registering user:",err);
-  alert("something went wrong. please try again")
-}
-};
+    if (formData.password !== formData.confirmPassword) {
+      toast.error("Your password does not match");
+      return;
+    }
+
+    if (formData.password.length <= 3) {
+      toast.error("Password must be greater than 3 characters");
+      return;
+    }
+
+    try {
+      await API.post("register/", {
+        username: `${formData.firstName}_${formData.lastName}`,
+        email: formData.email,
+        password: formData.password,
+      });
+
+      toast.success("Registration successful! You can now login.");
+
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+      });
+
+      navigate("/login");
+    } catch (err) {
+      console.error(err);
+      toast.error("Email already exists or invalid data");
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-100 flex items-center justify-center p-4">

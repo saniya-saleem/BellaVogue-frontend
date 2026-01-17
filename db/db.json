@@ -198,17 +198,7 @@
       "password": "098765",
       "role": "user",
       "isBlock": false,
-      "cart": [
-        {
-          "id": "6",
-          "name": "Blooming Luxury Gold Earring",
-          "price": 69.99,
-          "img": "https://salty.co.in/cdn/shop/files/ES13435-G_3_3fa029c2-dc4c-4f2e-b286-46dacb3b6fa4.jpg?v=1751917612&width=1800",
-          "rating": 4,
-          "category": "earrings",
-          "quantity": 1
-        }
-      ],
+      "cart": [],
       "orders": [],
       "wishlist": [],
       "created_at": "2025-08-22T10:42:44.800Z",
@@ -440,6 +430,17 @@
           "quantity": 1
         }
       ]
+    },
+    {
+      "id": "e447",
+      "name": "Try Demo",
+      "email": "try@gmail.com",
+      "password": "try@gmail.com",
+      "role": "user",
+      "isBlock": false,
+      "cart": [],
+      "orders": [],
+      "wishlist": []
     }
   ],
   "banners": [
@@ -460,9 +461,30 @@
     {
       "id": "o1",
       "customer": "Saniya",
+      "email": "saniya@gmail.com",
+      "phone": "9876543210",
+      "city": "Kalpetta",
+      "state": "Kerala",
+      "pincode": "673121",
+      "address": "Kakkencherry",
+      "payment": "COD",
       "date": "2025-09-01",
-      "amount": 69.99,
-      "status": "completed"
+      "status": "completed",
+      "items": [
+        {
+          "id": "2",
+          "name": "Stylish Bracelet",
+          "price": 100.99,
+          "quantity": 1
+        },
+        {
+          "id": "4",
+          "name": "Champagne Wishes Studs",
+          "price": 85.99,
+          "quantity": 1
+        }
+      ],
+      "total": 186.98
     },
     {
       "id": "o2",
@@ -608,6 +630,113 @@
         }
       ],
       "total": 388.96
+    },
+    {
+      "id": "o1766817098734",
+      "customer": "saniya",
+      "amount": 129.99,
+      "phone": "987532345",
+      "city": "kalpetta",
+      "state": "Kerala",
+      "pincode": "673121",
+      "address": "kanjirathingal(H)kapetta wayanad",
+      "payment": "COD",
+      "date": "2025-12-27",
+      "status": "Pending",
+      "items": [
+        {
+          "id": "3",
+          "name": "Luxury Rings",
+          "price": 129.99,
+          "img": "https://salty.co.in/cdn/shop/files/RS14337-S_MAIN.jpg?v=1753110246&width=1800",
+          "stock": 10,
+          "rating": 4,
+          "category": "rings",
+          "quantity": 1
+        }
+      ],
+      "total": 129.99
+    },
+    {
+      "id": "o1766817210563",
+      "customer": "saniya",
+      "amount": 286.97,
+      "phone": "7549272524",
+      "city": "kalpetta",
+      "state": "Kerala",
+      "pincode": "673121",
+      "address": "kanjirathingal(H)kapetta wayanad",
+      "payment": "COD",
+      "date": "2025-12-27",
+      "status": "Pending",
+      "items": [
+        {
+          "id": "3",
+          "name": "Luxury Rings",
+          "price": 129.99,
+          "img": "https://salty.co.in/cdn/shop/files/RS14337-S_MAIN.jpg?v=1753110246&width=1800",
+          "stock": 10,
+          "rating": 4,
+          "category": "rings",
+          "quantity": 1
+        },
+        {
+          "name": "Elegant Necklace",
+          "price": 55.99,
+          "img": "https://salty.co.in/cdn/shop/files/DazzlingBeehiveNecklace_1.png?v=1690709687&width=1800",
+          "stock": 1,
+          "category": "necklace",
+          "rating": 4.5,
+          "id": "1",
+          "quantity": 1
+        },
+        {
+          "name": "Stylish Bracelet",
+          "price": 100.99,
+          "img": "https://salty.co.in/cdn/shop/files/VictorianWhiteBracelet_2.jpg?v=1751919358&width=1800",
+          "stock": 12,
+          "category": "bracelet",
+          "rating": 5,
+          "id": "2",
+          "quantity": 1
+        }
+      ],
+      "total": 286.97
+    },
+    {
+      "id": "o1766818336565",
+      "customer": "ajmal",
+      "amount": 199.98000000000002,
+      "phone": "56780987",
+      "city": "kalpetta",
+      "state": "Kerala",
+      "pincode": "673121",
+      "address": "kanjirathingal(H)kapetta wayanad",
+      "payment": "COD",
+      "date": "2025-12-27",
+      "status": "Pending",
+      "items": [
+        {
+          "id": "6",
+          "name": "Blooming Luxury Gold Earring",
+          "price": 69.99,
+          "img": "https://salty.co.in/cdn/shop/files/ES13435-G_3_3fa029c2-dc4c-4f2e-b286-46dacb3b6fa4.jpg?v=1751917612&width=1800",
+          "rating": 4,
+          "category": "earrings",
+          "quantity": 1
+        },
+        {
+          "id": "3",
+          "name": "Luxury Rings",
+          "price": 129.99,
+          "img": "https://salty.co.in/cdn/shop/files/RS14337-S_MAIN.jpg?v=1753110246&width=1800",
+          "stock": 10,
+          "rating": 4,
+          "category": "rings",
+          "quantity": 1
+        }
+      ],
+      "total": 199.98000000000002
     }
   ]
 }
