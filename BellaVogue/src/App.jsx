@@ -39,8 +39,7 @@ import AdminProductspage from "./Admin/AdminProductspage";
 import AdminUserDetail from "./Admin/AdminUserDetail";
 
 // COMMON
-import Navbar from "./Components/Common/Navbar";
-import Footer from "./Components/Common/Footer";
+
 
 export default function App() {
   return (
@@ -48,7 +47,7 @@ export default function App() {
       <CartProvider>
         <WishlistProvider>
           <Router>
-            <Navbar />
+           
 
             <Routes>
               <Route path="/" element={<Navigate to="/home" replace />} />
@@ -118,7 +117,7 @@ export default function App() {
               />
             </Routes>
 
-            <Footer />
+            
             <ToastContainer position="top-center" autoClose={3000} />
           </Router>
         </WishlistProvider>
