@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import AdminSidebar from "../Components/AdminBar/AdminSidebar";
+import AdminSidebar from "../Components/AdminBar/AdminSideBar";
 import {
   getAllOrders,
   updateOrderStatus as updateOrderStatusAPI,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Users, Package, ShoppingCart, DollarSign } from "lucide-react";
-import AdminSidebar from "../Components/AdminBar/AdminSidebar";
+import AdminSidebar from "../Components/AdminBar/AdminSideBar";
 import { motion } from "framer-motion";
 import {
   Chart as ChartJS,

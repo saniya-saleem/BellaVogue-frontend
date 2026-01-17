@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Ban, CheckCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import AdminSidebar from "../Components/AdminBar/AdminSidebar";
+import AdminSidebar from "../Components/AdminBar/AdminSideBar";
 import { getAllUsers, toggleUserStatus } from "../api/adminApi";
 
 export default function AdminUserpage() {

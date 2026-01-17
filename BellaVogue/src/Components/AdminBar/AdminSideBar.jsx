@@ -3,7 +3,7 @@ import { Users, Package, ShoppingCart, BarChart3, LogOut } from "lucide-react";
 import { AuthContext } from '../../ContextAPI/AuthContext'
 import { Link, useNavigate, useLocation } from 'react-router-dom'
 
-const AdminSidebar = () => {
+const AdminSideBar = () => {
   const { logout } = useContext(AuthContext)
   const navigate = useNavigate()
   const location = useLocation()
@@ -69,4 +69,4 @@ const AdminSidebar = () => {
   )
 }
 
-export default AdminSidebar
+export default AdminSideBar

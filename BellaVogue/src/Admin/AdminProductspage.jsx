@@ -5,7 +5,7 @@ import {
   updateProduct,
   deleteProduct,
 } from "../api/adminApi";
-import AdminSidebar from "../Components/AdminBar/AdminSidebar";
+import AdminSidebar from "../Components/AdminBar/AdminSideBar";
 
 export default function AdminProductPage() {
   const [products, setProducts] = useState([]);
