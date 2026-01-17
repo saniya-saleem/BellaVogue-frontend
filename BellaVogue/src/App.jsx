@@ -13,8 +13,8 @@ import WishlistPage from "./Pages/User/WishlistPage";
 import ProductsPage from "./Pages/User/Shop/products";
 import CheckoutPage from "./Pages/CheckOut/CheckoutPage";
 import OrdersPage from "./Pages/User/OrdersPage";
-import ProductDetail from "./Pages/User/Shop/Productdetail";
-import About from "./Pages/Home/About";//
+import ProductDetail from "./Pages/User/Shop/ProductDetail";
+import About from "./Pages/Home/About";
 import AdminDashboard from './Admin/AdminDashboard';
 import AdminUserpage from "./Admin/AdminUserpage";
 import AdminOrderpage from "./Admin/AdminOrderpage";
