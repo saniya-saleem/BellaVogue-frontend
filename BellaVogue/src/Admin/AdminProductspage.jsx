@@ -34,7 +34,7 @@ export default function AdminProductPage() {
     fetchProducts();
   }, []);
 
-  /* ================= FORM HANDLING ================= */
+  
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
