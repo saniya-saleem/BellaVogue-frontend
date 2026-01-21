@@ -21,7 +21,7 @@ export function WishlistProvider({ children }) {
 
   const fetchWishlist = async () => {
     try {
-      const res = await API.get("wishlist/");
+      const res = await API.get("/api/wishlist/");
       setWishlistItems(res.data);
     } catch (error) {
       console.error("Fetch wishlist error:", error);
@@ -37,7 +37,7 @@ export function WishlistProvider({ children }) {
     }
 
     try {
-      await API.post("wishlist/add/", {
+      await API.post("/api/wishlist/add/", {
         product_id: product.id,
       });
       fetchWishlist();

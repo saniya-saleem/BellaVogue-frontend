@@ -8,7 +8,7 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    API.get("orders/")
+    API.get("/api/orders/")
       .then((res) => setOrders(res.data))
       .catch((err) => console.error("Error fetching orders:", err));
   }, []);

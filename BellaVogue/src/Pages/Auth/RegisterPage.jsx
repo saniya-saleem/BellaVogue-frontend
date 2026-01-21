@@ -38,7 +38,7 @@ export default function RegisterPage(){
     }
 
     try {
-      await API.post("register/", {
+      await API.post("/api/register/", {
         username: `${formData.firstName}_${formData.lastName}`,
         email: formData.email,
         password: formData.password,

@@ -19,7 +19,7 @@ export default function ProductDetail() {
 
   useEffect(() => {
     API
-      .get(`products/${id}/`)
+      .get(`/api/products/${id}/`)
       .then((res) => setProduct(res.data))
       .catch((err) => console.error("Error fetching product:", err));
   }, [id]);

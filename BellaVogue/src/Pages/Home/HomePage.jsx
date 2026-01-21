@@ -20,14 +20,14 @@ export default function HomePage() {
 
  
     useEffect(() => {
-    API.get("products/").then((res) => {
+    API.get("/api/products/").then((res) => {
       setProducts(res.data.slice(0, 8));
     });
   }, []);
 
  
     useEffect(() => {
-    API.get("banners/").then((res) => {
+    API.get("/api/banners/").then((res) => {
       setBanners(res.data);
     });
   }, []);

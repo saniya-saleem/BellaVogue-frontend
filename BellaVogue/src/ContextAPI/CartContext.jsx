@@ -21,7 +21,7 @@ export const CartProvider = ({ children }) => {
  
   const fetchCart = async () => {
     try {
-      const res = await API.get("cart/");
+      const res = await API.get("/api/cart/");
       setCartItems(res.data);
     } catch (error) {
       console.error("Fetch cart error:", error);
@@ -36,7 +36,7 @@ export const CartProvider = ({ children }) => {
     }
 
     try {
-      await API.post("cart/add/", { product_id: product.id });
+      await API.post("/api/cart/add/", { product_id: product.id });
       fetchCart();
       toast.success("🛒 Added to cart!");
     } catch (error) {
@@ -47,7 +47,7 @@ export const CartProvider = ({ children }) => {
  
   const increaseQty = async (productId) => {
     try {
-      await API.post("cart/add/", { product_id: productId });
+      await API.post("/api/cart/add/", { product_id: productId });
       fetchCart();
       toast.info("Quantity increased");
     } catch (error) {
@@ -58,7 +58,7 @@ export const CartProvider = ({ children }) => {
 
   const decreaseQty = async (cartItemId) => {
     try {
-      await API.post(`cart/decrease/${cartItemId}/`);
+      await API.post(`/api/cart/decrease/${cartItemId}/`);
       fetchCart();
       toast.info("Quantity decreased");
     } catch (error) {
@@ -69,7 +69,7 @@ export const CartProvider = ({ children }) => {
 
   const removeFromCart = async (cartItemId) => {
     try {
-      await API.delete(`cart/remove/${cartItemId}/`);
+      await API.delete(`/api/cart/remove/${cartItemId}/`);
       fetchCart();
       toast.warn("Item removed from cart");
     } catch (error) {
@@ -80,7 +80,7 @@ export const CartProvider = ({ children }) => {
 
   const clearCart = async () => {
     try {
-      await API.delete("cart/clear/");
+      await API.delete("/api/cart/clear/");
       setCartItems([]);
       toast.success("Cart cleared");
     } catch (error) {

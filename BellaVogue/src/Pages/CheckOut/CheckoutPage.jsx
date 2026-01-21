@@ -59,7 +59,7 @@ export default function CheckoutPage() {
   if (!validateForm()) return;
 
   try {
-    await API.post("checkout/", {
+    await API.post("/api/checkout/", {
       ...formData,
       payment_method: "COD",
       items: cartItems,
@@ -82,7 +82,7 @@ export default function CheckoutPage() {
   if (!validateForm()) return;
 
   try {
-    const res = await API.post("razorpay/order/", {
+    const res = await API.post("/api/razorpay/order/", {
       amount: Math.round(total * 100),
     });
 
@@ -94,13 +94,13 @@ export default function CheckoutPage() {
 
       handler: async function (response) {
         try {
-          await API.post("razorpay/verify/", {
+          await API.post("/api/razorpay/verify/", {
             razorpay_payment_id: response.razorpay_payment_id,
             razorpay_order_id: response.razorpay_order_id,
             razorpay_signature: response.razorpay_signature,
           });
 
-          await API.post("checkout/", {
+          await API.post("/api/checkout/", {
             ...formData,
             payment_method: "RAZORPAY",
             razorpay_payment_id: response.razorpay_payment_id,

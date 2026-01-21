@@ -39,7 +39,7 @@ export default function LoginPage() {
     e.preventDefault();
 
     try {
-      const res = await API.post("login/", {
+      const res = await API.post("/api/login/", {
         email: form.email,
         password: form.password,
       });
