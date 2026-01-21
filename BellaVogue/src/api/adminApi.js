@@ -10,13 +10,13 @@ export const getAdminDashboard = () =>
 
 
 export const getAllUsers = () =>
-  API.get("admin/users/");
+  API.get("/api/admin/users/");
 
 export const getUserById = (id) =>
-  API.get(`admin/users/${id}/`);
+  API.get(`/api/admin/users/${id}/`);
 
 export const toggleUserStatus = (id) =>
-  API.patch(`admin/users/${id}/status/`);
+  API.patch(`/api/admin/users/${id}/status/`);
 
 
 export const getAllProducts = (category) =>
@@ -25,24 +25,24 @@ export const getAllProducts = (category) =>
   });
 
 export const createProduct = (data) =>
-  API.post("admin/products/", data);
+  API.post("/api/admin/products/", data);
 
 export const updateProduct = (id, data) =>
-  API.put(`admin/products/${id}/`, data);
+  API.put(`/api/admin/products/${id}/`, data);
 
 export const deleteProduct = (id) =>
-  API.delete(`admin/products/${id}/`);
+  API.delete(`/api/admin/products/${id}/`);
 
 
 export const getAllOrders = () =>
-  API.get("admin/orders/");
+  API.get("/api/admin/orders/");
 
 export const getOrderDetails = (id) =>
-  API.get(`admin/orders/${id}/`);
+  API.get(`/api/admin/orders/${id}/`);
 
 export const updateOrderStatus = (id, status) =>
-  API.patch(`admin/orders/${id}/`, { status });
+  API.patch(`/api/admin/orders/${id}/`, { status });
 
 export const getUserOrders = (id) =>
-  API.get(`admin/users/${id}/orders/`);
+  API.get(`/api/admin/users/${id}/orders/`);
 
