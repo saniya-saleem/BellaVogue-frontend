@@ -1,18 +1,14 @@
 import axios from "axios";
 
-
 const BASE_URL =
-  import.meta.env.VITE_API_URL || "http://127.0.0.1:8000/api/";
-
+  import.meta.env.VITE_API_URL || "https://bellavogue.ddns.net";
 
 const API = axios.create({
   baseURL: BASE_URL,
 });
 
-
 API.interceptors.request.use(
   (config) => {
-
     const isAuthFree =
       config.url.includes("login") ||
       config.url.includes("register");
@@ -28,7 +24,6 @@ API.interceptors.request.use(
   },
   (error) => Promise.reject(error)
 );
-
 
 API.interceptors.response.use(
   (response) => response,
@@ -51,9 +46,10 @@ API.interceptors.response.use(
 
       if (refreshToken) {
         try {
-          const res = await axios.post(`${BASE_URL}token/refresh/`, {
-            refresh: refreshToken,
-          });
+          const res = await axios.post(
+            `${BASE_URL}/api/token/refresh/`,
+            { refresh: refreshToken }
+          );
 
           const newAccess = res.data.access;
           localStorage.setItem("access", newAccess);
