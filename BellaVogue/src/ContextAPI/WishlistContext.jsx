@@ -50,7 +50,7 @@ export function WishlistProvider({ children }) {
   
   const removeFromWishlist = async (wishlistItemId) => {
     try {
-      await API.delete(`wishlist/remove/${wishlistItemId}/`);
+      await API.delete(`/api/wishlist/remove/${wishlistItemId}/`);
       fetchWishlist();
       toast.warn("Removed from wishlist");
     } catch (error) {

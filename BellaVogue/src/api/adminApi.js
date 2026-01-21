@@ -2,11 +2,11 @@ import API from "./api";
 
 
 export const adminLogin = (data) =>
-  API.post("admin/login/", data);
+  API.post("/api/admin/login/", data);
 
 
 export const getAdminDashboard = () =>
-  API.get("admin/dashboard/");
+  API.get("/api/admin/dashboard/");
 
 
 export const getAllUsers = () =>
@@ -20,7 +20,7 @@ export const toggleUserStatus = (id) =>
 
 
 export const getAllProducts = (category) =>
-  API.get("admin/products/", {
+  API.get("/api/admin/products/", {
     params: category ? { category } : {},
   });
 
