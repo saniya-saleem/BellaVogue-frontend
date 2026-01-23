@@ -18,6 +18,8 @@ export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
   const { cartItems } = useContext(CartContext);
   const { wishlistItems } = useContext(WishlistContext);
+  const [showUserMenu, setShowUserMenu] = useState(false);
+
   const navigate = useNavigate();
 
   const handleLogout = () => {
