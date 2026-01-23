@@ -18,8 +18,6 @@ export default function Navbar() {
   const { user, logout } = useContext(AuthContext);
   const { cartItems } = useContext(CartContext);
   const { wishlistItems } = useContext(WishlistContext);
-  const [showUserMenu, setShowUserMenu] = useState(false);
-
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -76,53 +74,41 @@ export default function Navbar() {
             )}
           </NavLink>
 
-        {/* USER DROPDOWN */}
-        {user ? (
-          <div className="relative">
-            <User
-              className="w-6 h-6 text-indigo-700 cursor-pointer"
-              onClick={() => setShowUserMenu(!showUserMenu)}
-            />
+          {/* USER DROPDOWN */}
+          {user ? (
+            <div className="relative group">
+              <User className="w-6 h-6 text-indigo-700 cursor-pointer hover:scale-110 transition" />
 
-            {showUserMenu && (
-              <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg p-2 z-50">
+              <div className="absolute right-0 mt-2 w-40 bg-white shadow-lg rounded-lg p-2 opacity-0 group-hover:opacity-100 transition">
                 <NavLink
                   to="/orders"
-                  onClick={() => setShowUserMenu(false)}
-                  className="block px-2 py-1 text-gray-700 hover:text-indigo-600"
+                  className="block px-2 py-1 text-gray-700 hover:text-indigo-600 transition"
                 >
                   📦 My Orders
                 </NavLink>
 
                 <button
                   onClick={handleLogout}
-                  className="flex items-center gap-2 w-full px-2 py-1 text-gray-700 hover:text-red-600"
+                  className="flex items-center gap-2 w-full px-2 py-1 text-gray-700 hover:text-red-600 transition"
                 >
                   <LogOut className="w-4 h-4" /> Logout
                 </button>
               </div>
-            )}
-          </div>
-        ) : (
-          <div className="relative">
-            <User
-              className="w-6 h-6 text-indigo-700 cursor-pointer"
-              onClick={() => setShowUserMenu(!showUserMenu)}
-            />
+            </div>
+          ) : (
+            <div className="relative group">
+              <User className="w-6 h-6 text-indigo-700 cursor-pointer hover:scale-110 transition" />
 
-            {showUserMenu && (
-              <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-lg p-2 z-50">
+              <div className="absolute right-0 mt-2 w-32 bg-white shadow-lg rounded-lg p-2 opacity-0 group-hover:opacity-100 transition">
                 <button
                   onClick={handleLogin}
-                  className="flex items-center gap-2 w-full px-2 py-1 text-gray-700 hover:text-indigo-600"
+                  className="flex items-center gap-2 w-full px-2 py-1 text-gray-700 hover:text-indigo-600 transition"
                 >
                   <LucideLogIn className="w-4 h-4" /> Login
                 </button>
               </div>
-            )}
-          </div>
-        )}
-
+            </div>
+          )}
 
           {/* MOBILE MENU */}
           <button
